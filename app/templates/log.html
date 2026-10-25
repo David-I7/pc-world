@@ -1,0 +1,74 @@
+{% extends "baza.html" %}
+{% block title %}Log accesări{% endblock %}
+{% block content %}
+    <h1>Log accesări</h1>
+    {% if accesari %}
+        <section>
+            {% if afisare == "lista" %}
+            <ul>
+                {% for accesare in accesari %}
+                    <li>
+                        <ul>
+                            <li>Id accesare: {{ accesare.id }}</li>
+                            <li>Ip client: {{ accesare.ip_client }}</li>
+                            <li>Url accesat: {{ accesare.string_url }}</li>
+                            <li>Pagina: {{ accesare.pagina }}</li>
+                            <li>Parametri ({{ accesare.lista_parametri|length }}): 
+                                {% for param, val in accesare.lista_parametri %}
+                                     {{ param }} 
+                                {% endfor %}
+                            </li>
+                            {% if detalii_accesari %}
+                                <li>Data accesării: {{ accesare.detalii_data }}</li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% elif afisare == "tabel" %}
+                <table>
+                    <thead>
+                        <tr>
+                            {% for col in atribute %}
+                                <th>{{ col }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for accesare in accesari %}
+                            <tr>
+                                {% for col in atribute %}
+                                    <td>
+                                        {% if col == "id" %}
+                                            {{ accesare.id }}
+                                        {% elif col == "ip_client" %}
+                                            {{ accesare.ip_client }}
+                                        {% elif col == "url" %}
+                                            {{ accesare.string_url }}
+                                        {% elif col == "pagina" %}
+                                            {{ accesare.pagina }}
+                                        {% elif col == "parametri" %}
+                                            {% for param, val in accesare.lista_parametri %}
+                                                {{ param }} 
+                                            {% endfor %}
+                                        {% elif col == "data" %}
+                                            {{ accesare.detalii_data }}
+                                        {% endif %}
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </section>
+    {% endif %}
+    {% if eroare_accesari %}
+        <p>{{ eroare_accesari }}</p>
+    {% endif %}
+    {% if nr_accesari %}
+        <section>
+            <p>Număr total de accesări: {{ nr_accesari }}</p>
+        </section>
+    {% endif %}
+{% endblock %}

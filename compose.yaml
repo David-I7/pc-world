@@ -1,0 +1,16 @@
+name: pc_world
+
+services:
+  postgres:
+    image: postgres:18-alpine3.23
+    container_name: pg_pc_world
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql
+
+volumes:
+  pg_data:

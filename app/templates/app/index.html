@@ -1,0 +1,27 @@
+{% extends "baza.html" %}
+{% load static %}
+{% block title %}PC World - Magazin IT & Hardware{% endblock %}
+
+{% block extra_html_head %}
+  <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+{% endblock %}
+
+{% block content %}
+    <section id="bun-venit" class="welcome-section">
+      <div class="welcome-banner">
+        <a href="{% url 'produse' %}">
+            <img 
+                srcset="{% static 'imagini/welcome-banner-600.png' %} 600w,
+                    {% static 'imagini/welcome-banner-1200.png' %} 1200w"
+                sizes="(max-width: 600px) 100vw, 1200px"
+                src="{% static 'imagini/welcome-banner-1200.png' %}" alt="Bun venit la PC World" 
+            />
+        </a>
+      </div>
+    </section>
+    <section id="recomandate"></section>
+    <section id="laptopuri"></section>
+    <section id="componente"></section>
+    <section id="oferte-speciale"></section>
+    
+{% endblock %}

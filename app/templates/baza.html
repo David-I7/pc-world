@@ -1,0 +1,242 @@
+<!doctype html>
+{% load static %}
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}PC World{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}" />
+    <script src="{% static 'js/theme.js' %}"></script>
+    <script src="{% static 'js/index.js' %}" defer></script>
+    {% block extra_html_head %}{% endblock %}
+  </head>
+  <body>
+    <input type="checkbox" id="nav-toggle" class="header__toggle" aria-label="Comută meniul de navigare" />
+
+    <header class="header">
+
+      <nav class="nav__primary" aria-label="Navigație primară">
+        <div class="nav__container">
+          <ul class="nav__menu nav__menu--primary">
+            <li class="nav__item nav__item--brand">
+               
+                <label for="nav-toggle" class="header__burger button button--icon" title="Meniu">
+                    <span class="header__burger-line"></span>
+                </label>
+                <a href="{% url 'index' %}" class="brand" aria-label="PC World Acasă">
+                    <span class="brand__badge">PC</span>
+                    <span class="brand__text">World</span>
+                </a>
+            
+            </li>
+
+            <li class="nav__item nav__item--istoric">
+              <a href="{% url 'istoric' %}" class="nav__link">Istoric</a>
+            </li>
+
+            <li class="nav__item">
+              <a href="{% url 'favorite' %}" class="nav__link">Favorite</a>
+            </li>
+
+            <li class="nav__item">
+              <a href="{% url 'cos' %}" class="nav__link">Coș</a>
+            </li>
+          </ul>
+
+          <div class="nav__theme">
+            <button id="theme-toggle" class="button button--icon" type="button" aria-label="Schimbă tema între luminos și întunecat" title="Comută tema (Dark / Light)">
+              <svg class="theme-toggle__icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <label for="nav-toggle" class="drawer__overlay" aria-hidden="true"></label>
+
+    <aside class="drawer" id="nav-drawer" aria-label="Meniu lateral navigare">
+      <div class="drawer__header">
+        <a href="{% url 'index' %}" class="brand" aria-label="PC World Acasă">
+          <span class="brand__badge">PC</span>
+          <span class="brand__text">World</span>
+        </a>
+        <label for="nav-toggle" class="drawer__close button button--icon" aria-label="Închide meniul">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </label>
+      </div>
+
+      <nav class="drawer__content" aria-label="Navigație mobilă">
+        <ul class="drawer__menu">
+          <li class="drawer__item">
+            <a href="{% url 'index' %}" class="drawer__link">Acasă</a>
+            <ul class="drawer__submenu">
+              <li><a href="{% url 'index' %}#bun-venit" class="drawer__sublink">Bun venit</a></li>
+              <li><a href="{% url 'index' %}#recomandate" class="drawer__sublink">Produse recomandate</a></li>
+              <li><a href="{% url 'index' %}#laptopuri" class="drawer__sublink">Laptopuri</a></li>
+              <li><a href="{% url 'index' %}#componente" class="drawer__sublink">Componente hardware</a></li>
+              <li><a href="{% url 'index' %}#oferte-speciale" class="drawer__sublink">Oferte speciale</a></li>
+            </ul>
+          </li>
+
+          <li class="drawer__item">
+            <a href="{% url 'produse' %}" class="drawer__link">Produse</a>
+            <ul class="drawer__submenu">
+              <li><a href="{% url 'produse' %}?categorie=laptop" class="drawer__sublink">Laptopuri</a></li>
+              <li><a href="{% url 'produse' %}?categorie=componente" class="drawer__sublink">Componente</a></li>
+            </ul>
+          </li>
+
+          <li class="drawer__item">
+            <a href="{% url 'istoric' %}" class="drawer__link">Istoric</a>
+          </li>
+
+          <li class="drawer__item">
+            <a href="{% url 'favorite' %}" class="drawer__link">Favorite</a>
+          </li>
+
+          <li class="drawer__item">
+            <a href="{% url 'cos' %}" class="drawer__link">Coș</a>
+          </li>
+
+          <li class="drawer__item">
+            <a href="{% url 'despre' %}" class="drawer__link">Despre</a>
+          </li>
+
+          <li class="drawer__item">
+            <a href="{% url 'contact' %}" class="drawer__link">Contact</a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+    
+    <nav class="nav__secondary" id="secondary-nav" aria-label="Navigație secundară">
+      <div class="nav__container">
+        <ul class="nav__menu nav__menu--secondary">
+          <li class="nav__item">
+            <a href="{% url 'produse' %}" class="nav__link">
+              <span>Produse</span>
+              <span class="nav__caret" aria-hidden="true"></span>
+            </a>
+            <ul class="submenu" aria-label="Categorii Produse">
+              <li class="submenu__item">
+                <a href="{% url 'produse' %}?categorie=laptop" class="submenu__link">Laptopuri</a>
+              </li>
+              <li class="submenu__item">
+                <a href="{% url 'produse' %}?categorie=componente" class="submenu__link">Componente</a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav__item">
+            <a href="{% url 'index' %}" class="nav__link">
+              <span>Acasă</span>
+              <span class="nav__caret" aria-hidden="true"></span>
+            </a>
+            <ul class="submenu" aria-label="Secțiuni Pagina Principală">
+              <li class="submenu__item">
+                <a href="{% url 'index' %}#bun-venit" class="submenu__link">Bun venit</a>
+              </li>
+              <li class="submenu__item">
+                <a href="{% url 'index' %}#recomandate" class="submenu__link">Produse recomandate</a>
+              </li>
+              <li class="submenu__item">
+                <a href="{% url 'index' %}#laptopuri" class="submenu__link">Laptopuri</a>
+              </li>
+              <li class="submenu__item">
+                <a href="{% url 'index' %}#componente" class="submenu__link">Componente hardware</a>
+              </li>
+              <li class="submenu__item">
+                <a href="{% url 'index' %}#oferte-speciale" class="submenu__link">Oferte speciale</a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav__item">
+            <a href="{% url 'despre' %}" class="nav__link">Despre</a>
+          </li>
+
+          <li class="nav__item">
+            <a href="{% url 'contact' %}" class="nav__link">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+      <div class="footer__main">
+        <div class="footer__col footer__col--brand">
+          <a href="{% url 'index' %}" class="brand" aria-label="PC World Acasă">
+            <span class="brand__badge">PC</span>
+            <span class="brand__text">World</span>
+          </a>  
+          <p class="footer__brand-desc">
+            Magazin online dedicat pasionaților de tehnologie, oferind laptopuri performante și componente hardware de top.
+          </p>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__heading">Navigare</h4>
+          <ul class="footer__list">
+            <li class="footer__item"><a href="{% url 'index' %}" class="footer__link">Acasă</a></li>
+            <li class="footer__item"><a href="{% url 'produse' %}" class="footer__link">Produse</a></li>
+            <li class="footer__item"><a href="{% url 'istoric' %}" class="footer__link">Istoric</a></li>
+            <li class="footer__item"><a href="{% url 'favorite' %}" class="footer__link">Favorite</a></li>
+            <li class="footer__item"><a href="{% url 'cos' %}" class="footer__link">Coș</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__heading">Companie</h4>
+          <ul class="footer__list">
+            <li class="footer__item"><span>An înființare:</span> <strong>{{ an_infiintare }}</strong></li>
+            <li class="footer__item"><span>Sedii active:</span> <strong>{{ numar_sedii }}</strong></li>
+            <li class="footer__item"><span>Echipă:</span> <strong>{{ numar_angajati }} specialiști</strong></li>
+            <li class="footer__item footer__item--highlight"><a href="{% url 'despre' %}" class="footer__link">Despre noi &rarr;</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__heading">Contact & Suport</h4>
+          <ul class="footer__list">
+            <li class="footer__item">
+              <span class="footer__contact-label">Adresă:</span>
+              <span>{{ adresa }}</span>
+            </li>
+            <li class="footer__item">
+              <span class="footer__contact-label">Telefon:</span>
+              <a href="tel:{{ numar_telefon }}" class="footer__link">{{ numar_telefon }}</a>
+            </li>
+            <li class="footer__item">
+              <span class="footer__contact-label">Email suport:</span>
+              <a href="mailto:{{ email_suport }}" class="footer__link">{{ email_suport }}</a>
+            </li>
+            <li class="footer__item footer__item--highlight"><a href="{% url 'contact' %}" class="footer__link">Formular contact &rarr;</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__copyright">{{ copyright }}</p>
+        <p class="footer__client-ip"></p>
+      </div>
+    </footer>
+  </body>
+</html>

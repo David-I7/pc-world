@@ -1,0 +1,14 @@
+{% extends "baza.html" %}
+{% load static %}
+{% block title %}Despre{% endblock %}
+{% block content %}
+    <h1>Despre</h1>
+    <section>
+        <img 
+            srcset="{% static 'imagini/despre-600.png' %} 600w,
+                {% static 'imagini/despre-1200.png' %} 1200w"
+            sizes="(max-width: 600px) 100vw, 1200px"
+            src="{% static 'imagini/despre-1200.png' %}" alt="Despre PC World" 
+        />
+    </section>    
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "baza.html" %}
+{% block title %}Accesare{% endblock %}
+{% block content %}
+    <h1>Accesare {{ id }}</h1>
+    <section>
+        {% if eroare %}
+            <p style="color: red;">{{ eroare }}</p>
+        {% endif %}
+        {% if accesare %}
+            <ul>
+                <li>Id accesare: {{ accesare.id }}</li>
+                <li>Ip client: {{ accesare.ip_client }}</li>
+                <li>Url accesat: {{ accesare.string_url }}</li>
+                <li>Pagina: {{ accesare.pagina }}</li>
+                <li>Parametri ({{ accesare.lista_parametri|length }}): 
+                    {% for param, val in accesare.lista_parametri %}
+                        {{ param }} 
+                    {% endfor %}
+                </li>
+                <li>Data accesării: {{ accesare.detalii_data }}</li>  
+            </ul>
+        {% endif %}
+    </section>    
+{% endblock %}
