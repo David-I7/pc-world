@@ -1,9 +1,6 @@
-from django.http import HttpRequest
-from django.shortcuts import render
+from django.http import HttpRequest, QueryDict
 from datetime import datetime
 from urllib.parse import urlparse
-
-# Create your views here.
 
 ZILE_SAPTAMANA = [
     "Luni",
@@ -57,23 +54,26 @@ LUNI_ABRV = [
 
 class Accesare:
     contor = 0
+    accesari = []
     
-    def __init__(self, ip_client: str | None, url: str, parametri: dict[str, str] = {}) -> None:
+    def __init__(self, ip_client: str | None, url: str, parametri: QueryDict = QueryDict()) -> None:
         self.id: int = Accesare.contor 
         Accesare.contor +=1
         
         self.ip_client: str = ip_client or "undefined"
         self.url: str = url
-        self.parametri: dict[str, str] = parametri
+        self.parametri: QueryDict = parametri
         self.data: datetime = datetime.now()
         
         path = urlparse(self.url).path
         self._pagina = "/" if len(path) == 0 else path 
         
+        Accesare.accesari.insert(0, self)
+        
     def lista_parametri(self):
         return [
             (nume, valoare)
-            for nume, valoare in self.parametri.items()
+            for nume, valoare in self.parametri.lists()
         ]
     
     def string_url(self):
@@ -82,15 +82,7 @@ class Accesare:
     def pagina(self):
         return self._pagina
     
-    def calculeaza_data(self, data = ""):
-        format = ""
-
-        if data == "zi":
-            format = "%d %B %Y"
-        elif data == "timp":
-            format = "%H:%M:%S"
-        else: format = "%A, %d %B %Y"
-        
+    def formateaza_data(self, format: str):
         if format.find("%A") != -1:
             format = format.replace("%A", ZILE_SAPTAMANA[self.data.weekday()])
         if format.find("%B") != -1:
@@ -102,8 +94,19 @@ class Accesare:
             
         return self.data.strftime(format)
     
+    def calculeaza_data(self, data = ""):
+        format = ""
+
+        if data == "zi":
+            format = "%d %B %Y"
+        elif data == "timp":
+            format = "%H:%M:%S"
+        else: format = "%A, %d %B %Y"
+        
+        return self.formateaza_data(format)
+    
     def __str__(self) -> str:
-        return "\n".join([
+        return "\n ".join([
             f"id: {self.id}",
             f"ip_client: {self.ip_client}",
             f"string_url: {self.string_url()}",
@@ -111,18 +114,21 @@ class Accesare:
             f"calculeaza_data: {self.calculeaza_data()}",
             f"lista_parametri: {self.lista_parametri()}",
         ])
+        
+    def detalii_data(self):
+        return self.formateaza_data("%A, %d %B %Y, %H:%M:%S")
 
 def creaza_accesare(request:HttpRequest):
     return Accesare(request.META.get("REMOTE_ADDR"),request.build_absolute_uri(),request.GET)
 
-def index(request:HttpRequest):
-    return render(request, 'index.html')
-
-def info(request):
-    accesare = request.accesare
-    paramteru_data = accesare.parametri.get("data") or ""
+class HttpRequestCuAccesare(HttpRequest):
+    accesare:Accesare
     
-    data_formatata = accesare.calculeaza_data(paramteru_data)
-    dt = accesare.data.isoformat()
-    return render(request, 'info.html', {"data_formatata":data_formatata, "datetime" : dt})
-
+def isValidId(id:str):
+    try:
+        intId = int(id)
+        if intId < 0 or intId >= Accesare.contor:
+            return False
+        return intId == float(id)
+    except ValueError:
+        return False
