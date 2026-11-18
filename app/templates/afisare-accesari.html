@@ -1,0 +1,64 @@
+{% if accesari %}
+
+  <section style="margin: 24px 0px; overflow-x: auto;">
+    <h2 style="margin-bottom: 16px;">{{ titlu }}</h2>
+    {% if afisare == "lista" %}
+    <ul style="padding: 0 24px;">
+      {% for accesare in accesari %}
+          <li style="margin-bottom: 16px;">
+            <ul style="margin: 0 24px;">
+              <li style="margin: 0 -24px; list-style-type: none;">Id accesare: {{ accesare.id }}</li>
+              <li>Ip client: {{ accesare.ip_client }}</li>
+              <li>Url accesat: {{ accesare.string_url }}</li>
+              <li>Pagina: {{ accesare.pagina }}</li>
+              <li>Parametri ({{ accesare.lista_parametri | length }}): 
+                  {% for param, val in accesare.lista_parametri %}
+                        {{ param }} 
+                  {% endfor %}
+              </li>
+              {% if 'data' in atribute %}
+                  <li>Data accesării: {{ accesare.detalii_data }}</li>
+              {% endif %}
+            </ul>
+          </li>
+      {% endfor %}
+    </ul>
+    {% elif afisare == "tabel" %}
+        <table style="width:100%; border-collapse: collapse;">
+            <thead>
+                <tr>
+                  {% for col in atribute %}
+                      <th style="border: 1px solid #ddd; padding: 8px;">{{ col }}</th>
+                  {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+              {% for accesare in accesari %}
+                <tr>
+                    {% for col in atribute %}
+                        <td style="border: 1px solid #ddd; padding: 8px;">
+                            {% if col == "id" %}
+                                {{ accesare.id }}
+                            {% elif col == "ip_client" %}
+                                {{ accesare.ip_client }}
+                            {% elif col == "url" %}
+                                {{ accesare.string_url }}
+                            {% elif col == "pagina" %}
+                                {{ accesare.pagina }}
+                            {% elif col == "parametri" %}
+                                {% for param, val in accesare.lista_parametri %}
+                                    {{ param }} 
+                                {% endfor %}
+                            {% elif col == "data" %}
+                                {{ accesare.detalii_data }}
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    </section>
+
+{% endif %}

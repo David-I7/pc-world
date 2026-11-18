@@ -1,8 +1,8 @@
-{% extends "baza.html" %}
+{% extends "app/baza.html" %}
 {% block title %}Accesare{% endblock %}
 {% block content %}
-    <h1>Accesare {{ id }}</h1>
-    <section>
+  <section>
+      <h2>Accesare {{ id }}</h2>
         {% if eroare %}
             <p style="color: red;">{{ eroare }}</p>
         {% endif %}

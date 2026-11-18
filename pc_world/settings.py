@@ -28,7 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app',
+    'django_extensions',
+    'django.contrib.postgres',
+    'app.apps.AppConfig',
 ]
 
 MIDDLEWARE = [
@@ -65,7 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'app.ctx_processors.footer_context',
+                'app.ctx_processors.footer',
             ],
         },
     },
@@ -78,10 +79,18 @@ WSGI_APPLICATION = 'pc_world.wsgi.application'
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    'default': { # cheie care specifică baza de date implicită
+        'ENGINE': 'django.db.backends.postgresql', # motorul de baze de date (specific PostgreSQL)
+        'OPTIONS': { # dicționar cu opțiunile de conectare
+                'options': '-c search_path=django' # schema din cadrul bazei de date (în acest caz, "django")
+        },
+        'NAME': 'pc_world',     # un string cu numele bazei de date
+        'USER': 'david',      # username-ul pentru conexiunea la baza de date
+        'PASSWORD': 'david',  # parola userului creat în baza de date, cu care ne vom conecta
+        'HOST': '127.0.0.1',  # IP-ul serverului bazei de date (poate fi și localhost)
+        'PORT': '5432',       # portul pentru PostgreSQL (pe care l-ați setat la instalare; portul implicit e 5432
     }
+
 }
 
 
@@ -123,6 +132,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR,  "static")]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration

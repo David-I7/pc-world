@@ -1,0 +1,247 @@
+/* Stilizare Pagina Despre Noi - PC World */
+
+.despre-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xl);
+  width: 100%;
+}
+
+/* Header & Hero */
+.despre-hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.despre-hero__banner {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border-md);
+  background-color: var(--color-surface-low);
+}
+
+/* Bară Statistici Cheie */
+.despre-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  background-color: var(--color-surface-low);
+  border: 1px solid var(--color-border-md);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.despre-stat-item {
+  text-align: center;
+  padding: var(--spacing-sm);
+}
+
+.despre-stat-item__value {
+  font-size: 2.2rem;
+  font-weight: var(--font-weight-heavy);
+  color: var(--color-primary);
+  line-height: 1.2;
+}
+
+.despre-stat-item__label {
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-high);
+  margin-top: var(--spacing-xs);
+}
+
+.despre-stat-item__desc {
+  font-size: var(--font-size-body-xs);
+  color: var(--color-text-low);
+  margin-top: 2px;
+}
+
+/* Secțiuni de conținut */
+.despre-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.despre-section .despre-grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.despre-section__header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.despre-section__title {
+  margin-bottom: 0;
+}
+
+.despre-section__lead {
+  font-size: var(--font-size-body-md);
+  color: var(--color-text-md);
+  line-height: 1.7;
+}
+
+/* Grile de carduri (Produse & Obiective) */
+.despre-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.despre-card {
+  background-color: var(--color-surface-low);
+  border: 1px solid var(--color-border-md);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition:
+    transform var(--transition-speed-fast) ease,
+    box-shadow var(--transition-speed-fast) ease,
+    border-color var(--transition-speed-fast) ease;
+}
+
+.despre-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary);
+}
+
+.despre-card__icon-wrapper {
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-md);
+  background-color: var(--color-primary-subtle);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.despre-card__icon-wrapper svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.despre-card__title {
+  margin-bottom: var(--spacing-sm);
+}
+
+.despre-card__text {
+  font-size: var(--font-size-body-sm);
+  color: var(--color-text-md);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-md);
+}
+
+.despre-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  margin-top: auto;
+  transition: gap var(--transition-speed-fast) ease;
+}
+
+.despre-card__link:hover {
+  gap: var(--spacing-sm);
+  color: var(--color-primary-hover);
+}
+
+.despre-card--feature .despre-card__text {
+  margin-bottom: 0;
+}
+
+/* CTA & Asistență */
+.despre-cta {
+  background-color: var(--color-surface-low);
+  border: 1px solid var(--color-border-md);
+  border-left: 5px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+}
+
+.despre-cta__content {
+  flex: 1;
+}
+
+.despre-cta__title {
+  margin-bottom: var(--spacing-xs);
+}
+
+.despre-cta__desc {
+  font-size: var(--font-size-body-sm);
+  color: var(--color-text-md);
+  line-height: 1.5;
+}
+
+.despre-cta__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+/* Responsivitate */
+@media (max-width: 1024px) {
+  .despre-section .despre-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .despre-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .despre-cta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .despre-hero__title {
+    font-size: 1.75rem;
+  }
+
+  .despre-hero__subtitle {
+    font-size: var(--font-size-body-md);
+  }
+
+  .despre-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 540px) {
+  .despre-section .despre-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .despre-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .despre-cta__actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .despre-cta__actions .button {
+    width: 100%;
+  }
+}

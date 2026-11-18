@@ -1,0 +1,133 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Schema DB" id="_lc-S5r7k0uifwUUTezA">
+    <mxGraphModel dx="2291" dy="2733" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-1" parent="1" style="swimlane;html=1;startSize=34;rounded=0;fillColor=#dae8fc;swimlaneFillColor=#ffffff;strokeColor=#6c8ebf;fontStyle=1;" value="BRANDURI" vertex="1">
+          <mxGeometry height="164" width="260" x="150" y="450" as="geometry">
+            <mxRectangle height="34" width="90" x="150" y="450" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-2" parent="1" style="text;html=1;align=left;verticalAlign=top;spacingLeft=8;whiteSpace=wrap;strokeColor=none;fillColor=none;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;PK  id&amp;nbsp;&lt;br&gt;nume&amp;nbsp;&lt;br&gt;logo&amp;nbsp;&lt;br&gt;website_url&amp;nbsp;&lt;br&gt;data_adaugare&amp;nbsp;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="125" width="252" x="154" y="486" as="geometry" />
+        </mxCell>
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-3" parent="1" style="swimlane;html=1;startSize=34;rounded=0;fillColor=#dae8fc;swimlaneFillColor=#ffffff;strokeColor=#6c8ebf;fontStyle=1;" value="PRODUSE" vertex="1">
+          <mxGeometry height="316" width="340" x="500" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-4" parent="1" style="text;html=1;align=left;verticalAlign=top;spacingLeft=8;whiteSpace=wrap;strokeColor=none;fillColor=none;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;PK  id&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;FK brand&lt;br&gt;nume&amp;nbsp;&lt;br&gt;pret&amp;nbsp;&lt;br&gt;descriere&lt;br&gt;tip_produs&amp;nbsp;&lt;br&gt;data_adaugare&amp;nbsp;&lt;br&gt;durata_garantie&amp;nbsp;&lt;br&gt;imagine&lt;br&gt;slug&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;cod_producator&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;data_lansare&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="280" width="332" x="504" y="476" as="geometry" />
+        </mxCell>
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-5" parent="1" style="swimlane;html=1;startSize=34;rounded=0;fillColor=#dae8fc;swimlaneFillColor=#ffffff;strokeColor=#6c8ebf;fontStyle=1;" value="CATEGORII" vertex="1">
+          <mxGeometry height="190" width="300" x="1060" y="810" as="geometry" />
+        </mxCell>
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-6" parent="1" style="text;html=1;align=left;verticalAlign=top;spacingLeft=8;whiteSpace=wrap;strokeColor=none;fillColor=none;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;PK  id&amp;nbsp;&lt;br&gt;nume&amp;nbsp;&lt;br&gt;descriere&amp;nbsp;&lt;br&gt;culoare&lt;br&gt;sigla&amp;nbsp;&lt;br&gt;data_adaugare&amp;nbsp;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="150" width="292" x="1064" y="846" as="geometry" />
+        </mxCell>
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-7" parent="1" style="swimlane;html=1;startSize=34;rounded=0;fillColor=#dae8fc;swimlaneFillColor=#ffffff;strokeColor=#6c8ebf;fontStyle=1;" value="PROMOTII" vertex="1">
+          <mxGeometry height="216" width="300" x="760" y="1060" as="geometry" />
+        </mxCell>
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-8" parent="1" style="text;html=1;align=left;verticalAlign=top;spacingLeft=8;whiteSpace=wrap;strokeColor=none;fillColor=none;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;PK  id&amp;nbsp;&lt;br&gt;nume&amp;nbsp;&lt;br&gt;descriere&amp;nbsp;&lt;br&gt;data_inceput&amp;nbsp;&lt;br&gt;data_sfarsit&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;tip_discount&lt;br&gt;discount&amp;nbsp;&lt;br&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="175" width="292" x="764" y="1096" as="geometry" />
+        </mxCell>
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-9" parent="1" style="swimlane;html=1;startSize=34;rounded=0;fillColor=#dae8fc;swimlaneFillColor=#ffffff;strokeColor=#6c8ebf;fontStyle=1;" value="ADRESE" vertex="1">
+          <mxGeometry height="190" width="280" x="80" y="890" as="geometry" />
+        </mxCell>
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-10" parent="1" style="text;html=1;align=left;verticalAlign=top;spacingLeft=8;whiteSpace=wrap;strokeColor=none;fillColor=none;" value="PK  id BIGSERIAL&lt;br&gt;bloc&lt;div&gt;scara&lt;/div&gt;&lt;div&gt;etaj&lt;/div&gt;&lt;div&gt;apartament&lt;br&gt;&lt;div&gt;s&lt;span style=&quot;background-color: transparent; color: light-dark(#000000, var(--ge-light-color, #ffffff));&quot;&gt;trada&lt;/span&gt;&lt;/div&gt;&lt;div&gt;numar&lt;br&gt;&lt;div&gt;oras&amp;nbsp;&lt;br&gt;judet&amp;nbsp;&lt;br&gt;cod_postal&lt;br&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="150" width="272" x="84" y="926" as="geometry" />
+        </mxCell>
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-11" parent="1" style="swimlane;html=1;startSize=34;rounded=0;fillColor=#dae8fc;swimlaneFillColor=#ffffff;strokeColor=#6c8ebf;fontStyle=1;" value="DEPOZITE" vertex="1">
+          <mxGeometry height="138" width="300" x="430" y="890" as="geometry" />
+        </mxCell>
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-12" parent="1" style="text;html=1;align=left;verticalAlign=top;spacingLeft=8;whiteSpace=wrap;strokeColor=none;fillColor=none;" value="PK  id&lt;br&gt;FK adresa&lt;br&gt;&lt;div&gt;nume&lt;br&gt;data_adaugare&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="292" x="434" y="926" as="geometry" />
+        </mxCell>
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-15" edge="1" parent="1" source="JkSKKCLEMDpsMOP8lNUm-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=ERoneToMany;startArrow=ERmandOne;endFill=0;startFill=0;" target="JkSKKCLEMDpsMOP8lNUm-3" value="">
+          <mxGeometry relative="1" x="0.7468" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="450" y="532" />
+              <mxPoint x="450" y="600" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-16" edge="1" parent="1" source="JkSKKCLEMDpsMOP8lNUm-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=ERoneToMany;startArrow=ERmandOne;endFill=0;startFill=0;" target="JkSKKCLEMDpsMOP8lNUm-11" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-17" edge="1" parent="1" source="JkSKKCLEMDpsMOP8lNUm-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=ERoneToMany;startArrow=ERzeroToMany;endFill=0;startFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.652;entryY=-0.017;entryDx=0;entryDy=0;entryPerimeter=0;" target="JkSKKCLEMDpsMOP8lNUm-11" value="">
+          <mxGeometry relative="1" x="-0.023" y="30" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="670" y="850" />
+              <mxPoint x="625.6" y="850" />
+            </Array>
+            <mxPoint x="670" y="770" as="sourcePoint" />
+            <mxPoint x="730" y="1219" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-19" edge="1" parent="1" source="JkSKKCLEMDpsMOP8lNUm-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=ERzeroToMany;endArrow=ERzeroToMany;startFill=0;endFill=0;" target="JkSKKCLEMDpsMOP8lNUm-5" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-20" edge="1" parent="1" source="JkSKKCLEMDpsMOP8lNUm-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=ERoneToMany;endArrow=ERzeroToMany;endFill=0;startFill=0;" target="JkSKKCLEMDpsMOP8lNUm-7" value="">
+          <mxGeometry relative="1" x="-0.0754" as="geometry">
+            <Array as="points">
+              <mxPoint x="930" y="650" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-21" parent="1" style="swimlane;html=1;startSize=34;rounded=0;fillColor=#dae8fc;swimlaneFillColor=#ffffff;strokeColor=#6c8ebf;fontStyle=1;" value="LAPTOPURI" vertex="1">
+          <mxGeometry height="274" width="340" x="190" y="76" as="geometry" />
+        </mxCell>
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-22" parent="JkSKKCLEMDpsMOP8lNUm-21" style="text;html=1;align=left;verticalAlign=top;spacingLeft=8;whiteSpace=wrap;strokeColor=none;fillColor=none;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;PK FK id&lt;br&gt;nume_procesor&lt;br&gt;placa_video&lt;br&gt;capacitate_ram&lt;br&gt;capacitate_stocare&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;tip_stocare&lt;/font&gt;&lt;span style=&quot;font-size: 16px; background-color: transparent; color: light-dark(#000000, var(--ge-light-color, #ffffff));&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;sistem_de_operare&amp;nbsp;&lt;br&gt;greutate&lt;br&gt;dimensiune_ecran&lt;br&gt;rezolutie_ecran&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;rata_refresh&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="222" width="332" x="8" y="38" as="geometry" />
+        </mxCell>
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-23" edge="1" parent="1" source="JkSKKCLEMDpsMOP8lNUm-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=ERmandOne;startArrow=ERmandOne;endFill=0;startFill=0;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" target="JkSKKCLEMDpsMOP8lNUm-3" value="">
+          <mxGeometry relative="1" x="0.5391" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="445" y="380" />
+              <mxPoint x="585" y="380" />
+            </Array>
+            <mxPoint x="610" y="380" as="sourcePoint" />
+            <mxPoint x="700" y="448" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-24" parent="1" style="swimlane;html=1;startSize=34;rounded=0;fillColor=#dae8fc;swimlaneFillColor=#ffffff;strokeColor=#6c8ebf;fontStyle=1;" value="PLACI_VIDEO" vertex="1">
+          <mxGeometry height="190" width="340" x="590" y="146" as="geometry" />
+        </mxCell>
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-25" parent="JkSKKCLEMDpsMOP8lNUm-24" style="text;html=1;align=left;verticalAlign=top;spacingLeft=8;whiteSpace=wrap;strokeColor=none;fillColor=none;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;PK FK id&amp;nbsp;&lt;br&gt;memorie&amp;nbsp;&lt;br&gt;tip_memorie&amp;nbsp;&lt;br&gt;frecventa&amp;nbsp;&lt;br&gt;model&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;interfata&amp;nbsp;&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="125" width="332" x="8" y="32.5" as="geometry" />
+        </mxCell>
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-26" parent="1" style="swimlane;html=1;startSize=34;rounded=0;fillColor=#dae8fc;swimlaneFillColor=#ffffff;strokeColor=#6c8ebf;fontStyle=1;" value="PROCESOARE" vertex="1">
+          <mxGeometry height="264" width="340" x="980" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-27" parent="JkSKKCLEMDpsMOP8lNUm-26" style="text;html=1;align=left;verticalAlign=top;spacingLeft=8;whiteSpace=wrap;strokeColor=none;fillColor=none;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;PK FK id&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;nucleu&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;numar_nuclee&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;numar_threaduri&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;memorie_cache_l1&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;memorie_cache_l2&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;memorie_cache_l3&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;frecventa&lt;br&gt;putere_totala_disipata&amp;nbsp;&lt;br&gt;serie&lt;br&gt;socket&lt;/font&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="229" width="332" x="8" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-28" edge="1" parent="1" source="JkSKKCLEMDpsMOP8lNUm-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=ERmandOne;startArrow=ERmandOne;endFill=0;startFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="JkSKKCLEMDpsMOP8lNUm-3" value="">
+          <mxGeometry relative="1" x="-0.0825" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="760" y="410" />
+              <mxPoint x="670" y="410" />
+            </Array>
+            <mxPoint x="782" y="370" as="sourcePoint" />
+            <mxPoint x="882" y="470" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JkSKKCLEMDpsMOP8lNUm-29" edge="1" parent="1" source="JkSKKCLEMDpsMOP8lNUm-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=ERmandOne;startArrow=ERmandOne;endFill=0;startFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" value="">
+          <mxGeometry relative="1" x="0.0957" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1150" y="410" />
+              <mxPoint x="1030" y="410" />
+              <mxPoint x="1030" y="500" />
+            </Array>
+            <mxPoint x="1030" y="340" as="sourcePoint" />
+            <mxPoint x="840" y="500" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

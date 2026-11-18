@@ -1,8 +1,9 @@
-{% extends "baza.html" %}
+{% extends "app/baza.html" %}
 {% block title %}Informații despre server{% endblock %}
 {% block content %}
-    <h1>Informații despre server</h1>
-    <section>
+  <section>
+      <h2>Informații despre server</h2>
+        <H2>Data și ora</H2>
         <time datetime="{{ datetime }}">{{ data_formatata }}</time>
     </section>    
 {% endblock %}

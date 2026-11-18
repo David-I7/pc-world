@@ -55,6 +55,7 @@ LUNI_ABRV = [
 class Accesare:
     contor = 0
     accesari = []
+    map_nr_accesari_pe_pagini: dict[str,int] = {}
     
     def __init__(self, ip_client: str | None, url: str, parametri: QueryDict = QueryDict()) -> None:
         self.id: int = Accesare.contor 
@@ -65,10 +66,11 @@ class Accesare:
         self.parametri: QueryDict = parametri
         self.data: datetime = datetime.now()
         
-        path = urlparse(self.url).path
+        path = urlparse(self.url).path       
         self._pagina = "/" if len(path) == 0 else path 
         
-        Accesare.accesari.insert(0, self)
+        Accesare.accesari.append(self)
+        Accesare.map_nr_accesari_pe_pagini[self._pagina] = Accesare.map_nr_accesari_pe_pagini.get(self._pagina, 0) + 1
         
     def lista_parametri(self):
         return [
@@ -83,14 +85,10 @@ class Accesare:
         return self._pagina
     
     def formateaza_data(self, format: str):
-        if format.find("%A") != -1:
-            format = format.replace("%A", ZILE_SAPTAMANA[self.data.weekday()])
-        if format.find("%B") != -1:
-            format = format.replace("%B", LUNI[self.data.month - 1])
-        if format.find("%a") != -1:
-            format = format.replace("%a", ZILE_ABRV[self.data.weekday()])
-        if format.find("%b") != -1:
-            format = format.replace("%b", LUNI_ABRV[self.data.month - 1])
+        format = format.replace("%A", ZILE_SAPTAMANA[self.data.weekday()])
+        format = format.replace("%B", LUNI[self.data.month - 1])
+        format = format.replace("%a", ZILE_ABRV[self.data.weekday()])
+        format = format.replace("%b", LUNI_ABRV[self.data.month - 1])
             
         return self.data.strftime(format)
     
@@ -117,6 +115,26 @@ class Accesare:
         
     def detalii_data(self):
         return self.formateaza_data("%A, %d %B %Y, %H:%M:%S")
+      
+    @staticmethod  
+    def get_accesare(id:int):
+      return Accesare.accesari[id] if 0 <= id < len(Accesare.accesari) else None
+    
+    @staticmethod
+    def get_accesari(startId:int, endId:int):
+      return Accesare.accesari[startId:endId] if 0 <= startId < len(Accesare.accesari) and 0 <= endId < len(Accesare.accesari) else None
+    
+    @staticmethod
+    def get_ultimele_accesari(n:int):
+      return Accesare.accesari[-n:] if n > 0 and n <= len(Accesare.accesari) else None
+    
+    @staticmethod
+    def get_pagina_cea_mai_accesata():
+      return max(Accesare.map_nr_accesari_pe_pagini.items(), key=lambda x: x[1])
+    
+    @staticmethod
+    def get_pagina_cea_mai_putin_accesata() -> tuple[str,int]:
+      return min(Accesare.map_nr_accesari_pe_pagini.items(), key=lambda x: x[1])
 
 def creaza_accesare(request:HttpRequest):
     return Accesare(request.META.get("REMOTE_ADDR"),request.build_absolute_uri(),request.GET)
@@ -132,3 +150,7 @@ def isValidId(id:str):
         return intId == float(id)
     except ValueError:
         return False
+      
+  
+
+    

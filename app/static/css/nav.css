@@ -4,7 +4,7 @@
   width: 100%;
   z-index: 1000;
   border-bottom: 1px solid var(--color-border-md);
-  background-color: rgb(from var(--color-surface-md) r g b / 0.85);
+  background-color: rgb(from var(--color-surface-md) r g b / 0.6);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }
@@ -370,7 +370,7 @@
     display: none;
   }
 
-    .header__toggle:checked ~ .drawer {
+  .header__toggle:checked ~ .drawer {
     transform: translateX(0);
     visibility: visible;
   }
@@ -386,10 +386,7 @@
   }
 }
 
-@media (max-width: 540px) {
-  .nav__item--istoric {
-    display: none;
-  }
+@media (max-width: 460px) {
   .nav__theme {
     display: none;
   }
@@ -401,7 +398,7 @@ main,
   width: 100%;
   max-width: var(--max-content-width);
   margin: 0 auto;
-  padding: 2.5rem var(--content-padding);
+  padding: 1.5rem var(--content-padding);
 }
 
 .footer {

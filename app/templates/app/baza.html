@@ -7,6 +7,7 @@
     <title>{% block title %}PC World{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/index.css' %}" />
     <link rel="stylesheet" href="{% static 'css/nav.css' %}" />
+    <link rel="icon" type="image/jpeg" href="{% static 'imagini/app/favicon.ico' %}" />
     <script src="{% static 'js/theme.js' %}"></script>
     <script src="{% static 'js/index.js' %}" defer></script>
     {% block extra_html_head %}{% endblock %}
@@ -24,15 +25,12 @@
                 <label for="nav-toggle" class="header__burger button button--icon" title="Meniu">
                     <span class="header__burger-line"></span>
                 </label>
-                <a href="{% url 'index' %}" class="brand" aria-label="PC World Acasă">
-                    <span class="brand__badge">PC</span>
-                    <span class="brand__text">World</span>
-                </a>
-            
-            </li>
-
-            <li class="nav__item nav__item--istoric">
-              <a href="{% url 'istoric' %}" class="nav__link">Istoric</a>
+                <h1>
+                  <a href="{% url 'index' %}" class="brand" aria-label="PC World Acasă">
+                      <span class="brand__badge">PC</span>
+                      <span class="brand__text">World</span>
+                  </a>
+                </h1>
             </li>
 
             <li class="nav__item">
@@ -85,18 +83,25 @@
             <a href="{% url 'index' %}" class="drawer__link">Acasă</a>
             <ul class="drawer__submenu">
               <li><a href="{% url 'index' %}#bun-venit" class="drawer__sublink">Bun venit</a></li>
-              <li><a href="{% url 'index' %}#recomandate" class="drawer__sublink">Produse recomandate</a></li>
               <li><a href="{% url 'index' %}#laptopuri" class="drawer__sublink">Laptopuri</a></li>
-              <li><a href="{% url 'index' %}#componente" class="drawer__sublink">Componente hardware</a></li>
-              <li><a href="{% url 'index' %}#oferte-speciale" class="drawer__sublink">Oferte speciale</a></li>
+              <li><a href="{% url 'index' %}#placi-video" class="drawer__sublink">Placi video</a></li>
+              <li><a href="{% url 'index' %}#procesoare" class="drawer__sublink">Procesoare</a></li>
+              <li><a href="{% url 'index' %}#promotii" class="drawer__sublink">Promoții</a></li>
             </ul>
           </li>
 
           <li class="drawer__item">
-            <a href="{% url 'produse' %}" class="drawer__link">Produse</a>
+            <div class="drawer__link">Produse</div>
             <ul class="drawer__submenu">
-              <li><a href="{% url 'produse' %}?categorie=laptop" class="drawer__sublink">Laptopuri</a></li>
-              <li><a href="{% url 'produse' %}?categorie=componente" class="drawer__sublink">Componente</a></li>
+              <li class="submenu__item">
+                <a href="{% url 'laptopuri' %}" class="submenu__link">Laptopuri</a>
+              </li>
+              <li class="submenu__item">
+                <a href="{% url 'placi_video' %}" class="submenu__link">Placi video</a>
+              </li>
+              <li class="submenu__item">
+                <a href="{% url 'procesoare' %}" class="submenu__link">Procesoare</a>
+              </li>
             </ul>
           </li>
 
@@ -127,16 +132,19 @@
       <div class="nav__container">
         <ul class="nav__menu nav__menu--secondary">
           <li class="nav__item">
-            <a href="{% url 'produse' %}" class="nav__link">
+            <div class="nav__link">
               <span>Produse</span>
               <span class="nav__caret" aria-hidden="true"></span>
-            </a>
+            </div>
             <ul class="submenu" aria-label="Categorii Produse">
               <li class="submenu__item">
-                <a href="{% url 'produse' %}?categorie=laptop" class="submenu__link">Laptopuri</a>
+                <a href="{% url 'laptopuri' %}" class="submenu__link">Laptopuri</a>
               </li>
               <li class="submenu__item">
-                <a href="{% url 'produse' %}?categorie=componente" class="submenu__link">Componente</a>
+                <a href="{% url 'placi_video' %}" class="submenu__link">Placi video</a>
+              </li>
+              <li class="submenu__item">
+                <a href="{% url 'procesoare' %}" class="submenu__link">Procesoare</a>
               </li>
             </ul>
           </li>
@@ -151,18 +159,22 @@
                 <a href="{% url 'index' %}#bun-venit" class="submenu__link">Bun venit</a>
               </li>
               <li class="submenu__item">
-                <a href="{% url 'index' %}#recomandate" class="submenu__link">Produse recomandate</a>
-              </li>
-              <li class="submenu__item">
                 <a href="{% url 'index' %}#laptopuri" class="submenu__link">Laptopuri</a>
               </li>
               <li class="submenu__item">
-                <a href="{% url 'index' %}#componente" class="submenu__link">Componente hardware</a>
+                <a href="{% url 'index' %}#placi-video" class="submenu__link">Placi video</a>
               </li>
               <li class="submenu__item">
-                <a href="{% url 'index' %}#oferte-speciale" class="submenu__link">Oferte speciale</a>
+                <a href="{% url 'index' %}#procesoare" class="submenu__link">Procesoare</a>
+              </li>
+              <li class="submenu__item">
+                <a href="{% url 'index' %}#promotii" class="submenu__link">Promoții</a>
               </li>
             </ul>
+          </li>
+
+          <li class="nav__item">
+            <a href="{% url 'istoric' %}" class="nav__link">Istoric</a>
           </li>
 
           <li class="nav__item">
@@ -196,7 +208,9 @@
           <h4 class="footer__heading">Navigare</h4>
           <ul class="footer__list">
             <li class="footer__item"><a href="{% url 'index' %}" class="footer__link">Acasă</a></li>
-            <li class="footer__item"><a href="{% url 'produse' %}" class="footer__link">Produse</a></li>
+            <li class="footer__item"><a href="{% url 'laptopuri' %}" class="footer__link">Laptopuri</a></li>
+            <li class="footer__item"><a href="{% url 'placi_video' %}" class="footer__link">Placi video</a></li>
+            <li class="footer__item"><a href="{% url 'procesoare' %}" class="footer__link">Procesoare</a></li>
             <li class="footer__item"><a href="{% url 'istoric' %}" class="footer__link">Istoric</a></li>
             <li class="footer__item"><a href="{% url 'favorite' %}" class="footer__link">Favorite</a></li>
             <li class="footer__item"><a href="{% url 'cos' %}" class="footer__link">Coș</a></li>

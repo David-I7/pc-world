@@ -2,8 +2,8 @@ from django.shortcuts import render
 
 def handler(request):
     accesare = request.accesare
-    data = accesare.parametri.get("data") or ""
+    parametru_data = accesare.parametri.get("data") or ""
     
-    data_formatata = accesare.calculeaza_data(data)
+    data_formatata = accesare.calculeaza_data(parametru_data)
     dt = accesare.data.isoformat()
     return render(request, 'info.html', {"data_formatata":data_formatata, "datetime" : dt})
