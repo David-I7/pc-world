@@ -6,7 +6,6 @@
   border-bottom: 1px solid var(--color-border-md);
   background-color: rgb(from var(--color-surface-md) r g b / 0.6);
   backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
 }
 
 .nav__container {

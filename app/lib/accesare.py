@@ -2,55 +2,7 @@ from django.http import HttpRequest, QueryDict
 from datetime import datetime
 from urllib.parse import urlparse
 
-ZILE_SAPTAMANA = [
-    "Luni",
-    "Marți",
-    "Miercuri",
-    "Joi",
-    "Vineri",
-    "Sâmbătă",
-    "Duminică",
-]
-
-ZILE_ABRV = [
-    "Lun",
-    "Mar",
-    "Mie",
-    "Joi",
-    "Vin",
-    "Sâm",
-    "Dum",
-]
-
-LUNI = [
-    "Ianuarie",
-    "Februarie",
-    "Martie",
-    "Aprilie",
-    "Mai",
-    "Iunie",
-    "Iulie",
-    "August",
-    "Septembrie",
-    "Octombrie",
-    "Noiembrie",
-    "Decembrie",
-]
-
-LUNI_ABRV = [
-    "Ian",
-    "Feb",
-    "Mar",
-    "Apr",
-    "Mai",
-    "Iun",
-    "Iul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Noi",
-    "Dec"
-]
+from ..utils.date import formateaza_data
 
 class Accesare:
     contor = 0
@@ -83,14 +35,7 @@ class Accesare:
     
     def pagina(self):
         return self._pagina
-    
-    def formateaza_data(self, format: str):
-        format = format.replace("%A", ZILE_SAPTAMANA[self.data.weekday()])
-        format = format.replace("%B", LUNI[self.data.month - 1])
-        format = format.replace("%a", ZILE_ABRV[self.data.weekday()])
-        format = format.replace("%b", LUNI_ABRV[self.data.month - 1])
-            
-        return self.data.strftime(format)
+  
     
     def calculeaza_data(self, data = ""):
         format = ""
@@ -101,7 +46,7 @@ class Accesare:
             format = "%H:%M:%S"
         else: format = "%A, %d %B %Y"
         
-        return self.formateaza_data(format)
+        return formateaza_data(format, self.data)
     
     def __str__(self) -> str:
         return "\n ".join([
@@ -114,7 +59,7 @@ class Accesare:
         ])
         
     def detalii_data(self):
-        return self.formateaza_data("%A, %d %B %Y, %H:%M:%S")
+        return formateaza_data("%A, %d %B %Y, %H:%M:%S", self.data)
       
     @staticmethod  
     def get_accesare(id:int):

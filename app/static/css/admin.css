@@ -1,0 +1,39 @@
+html[data-theme="light"],
+:root {
+  --primary: #ea580c;
+  --secondary: #1e293b;
+  --primary-fg: #ffffff;
+  --body-bg: #f1f5f9;
+  --breadcrumbs-bg: #c2410c;
+  --selected-row: #fed7aa;
+  --sidebar-bg: #e2e8f0;
+}
+
+html[data-theme="dark"],
+:root {
+  --primary: #ea580c;
+  --secondary: #1e293b;
+  --primary-fg: #ffffff;
+  --body-bg: #14171d;
+  --sidebar-bg: #1c212b;
+  --breadcrumbs-bg: #9a3412;
+  --selected-row: #552d20;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: #ea580c;
+    --secondary: #1e293b;
+    --primary-fg: #ffffff;
+    --body-bg: #14171d;
+    --sidebar-bg: #1c212b;
+    --breadcrumbs-bg: #9a3412;
+    --selected-row: #552d20;
+  }
+}
+
+.admin-brand-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

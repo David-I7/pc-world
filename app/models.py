@@ -125,7 +125,6 @@ class Procesor(Produs):
         return f"Procesor {self.brand} ({self.nume}) - {self.pret} RON"
         
     
-
 class PlacaVideo(Produs):
     class Meta: # type: ignore
         verbose_name = "Placa Video"
@@ -140,8 +139,7 @@ class PlacaVideo(Produs):
     def __str__(self):
         return f"Placa Video {self.brand} ({self.nume}) - {self.pret} RON"
         
-    
-    
+  
 class Categorie(models.Model):
     class Meta:
         ordering = ['nume']
@@ -158,7 +156,7 @@ class Categorie(models.Model):
     nume = models.CharField(max_length=100, unique=True, error_messages={'unique': 'Aceasta categorie exista deja.'})
     descriere = models.TextField()
     culoare = models.CharField(max_length=7, help_text="Culoarea trebuie sa fie in format hexazecimal (ex: #FFFFFF).")
-    sigla = models.ImageField(upload_to='sigle_categorii/', blank=True, null=True, default=None)
+    sigla = models.URLField(default="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/x-circle.svg")
     data_adaugare = models.DateTimeField(auto_now_add=True, blank=True) 
     produse = models.ManyToManyField(Produs, related_name='categorii', blank=True)
     
