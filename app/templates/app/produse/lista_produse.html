@@ -1,0 +1,156 @@
+{% extends "app/baza.html" %}
+{% load static %}
+
+{% block title %}{{ titlu_pagina }} | PC World{% endblock %}
+
+{% block extra_html_head %}
+  <link rel="stylesheet" href="{% static 'css/produse.css' %}" />
+{% endblock %}
+
+{% block content %}
+<section class="catalog">
+  {% if categorie %}
+  <header class="categorie-banner" style="--cat-color: {{ categorie.culoare }};">
+    <div class="categorie-banner__info">
+      <div class="categorie-banner__title-container">
+        {% if categorie.sigla_svg %}
+        <div class="categorie-banner__icon-wrap">
+          <span class="categorie-banner__icon" aria-hidden="true">{{ categorie.sigla_svg }}</span>
+        </div>
+        {% endif %}
+        <h2 class="categorie-banner__title">{{ categorie.nume }}</h2>
+      </div>
+      {% if categorie.descriere %}
+      <p class="categorie-banner__desc">{{ categorie.descriere }}</p>
+      {% endif %}
+    </div>
+  </header>
+  {% else %}
+  <header class="catalog__header">
+    <h2 class="catalog__title">{{ titlu_pagina }}</h2>
+    {% if subtitlu_pagina %}
+    <p class="catalog__subtitle">{{ subtitlu_pagina }}</p>
+    {% endif %}
+  </header>
+  {% endif %}
+
+  <div class="catalog__controls">
+    <form method="get" class="sort-bar" aria-label="Sortare produse">
+      {% for tag in active_tags %}
+      <input type="hidden" name="tag" value="{{ tag }}" />
+      {% endfor %}
+
+      <div class="sort-bar__group">
+        <label for="sort-col" class="sort-bar__label">Sortează după:</label>
+        <select id="sort-col" name="col" class="sort-bar__select">
+          <option value="">Cele mai noi</option>
+          {% for col_key, col_label in coloane_sortare %}
+          <option value="{{ col_key }}" {% if current_col == col_key %}selected{% endif %}>{{ col_label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="sort-bar__group">
+        <label for="sort-dir" class="sort-bar__label">Ordine:</label>
+        <select id="sort-dir" name="sort" class="sort-bar__select">
+          <option value="a" {% if current_sort == 'a' %}selected{% endif %}>Ascendent</option>
+          <option value="d" {% if current_sort == 'd' %}selected{% endif %}>Descendent</option>
+        </select>
+      </div>
+
+      <button type="submit" class="button button--primary button--sm">Aplică</button>
+
+      {% if current_col or current_sort %}
+      <a href="{{ url_reset_sortare }}" class="button button--outline button--sm">Resetează sortarea</a>
+      {% endif %}
+    </form>
+
+    {% if active_tags_links %}
+    <div class="active-tags" aria-label="Taguri active">
+      <span class="active-tags__label">Filtre active:</span>
+      <div class="active-tags__list">
+        {% for item in active_tags_links %}
+        <a href="{{ item.url_elimina }}" class="active-tag" title="Elimină filtrul {{ item.nume }}">
+          <span>{{ item.nume }}</span>
+          <span class="active-tag__remove" aria-hidden="true">&times;</span>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  {% if total_count > 0 %}
+  <div class="catalog__meta-bar">
+    <p class="catalog__summary">
+      Se afișează produsele între <strong>{{ start_index }}</strong> și <strong>{{ end_index }}</strong> din totalul de <strong>{{ total_count }}</strong> produse.
+    </p>
+    <nav class="pagination" aria-label="Paginare produse sus">
+      <span class="pagination__info">Pagina {{ page_obj.number }} din {{ page_obj.paginator.num_pages }}</span>
+      <div class="pagination__actions">
+        {% if url_pagina_anterioara %}
+        <a href="{{ url_pagina_anterioara }}" class="button button--icon" title="Pagina anterioară">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left preview-icon"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>  
+        </a>
+        {% else %}
+        <span class="button button--icon pagination__disabled" aria-disabled="true" title="Pagina anterioară">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left preview-icon"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+        </span>
+        {% endif %}
+
+        {% if url_pagina_urmatoare %}
+        <a href="{{ url_pagina_urmatoare }}" class="button button--icon" title="Pagina următoare">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right preview-icon"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        {% else %}
+        <span class="button button--icon pagination__disabled" aria-disabled="true" title="Pagina următoare">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right preview-icon"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </span>
+        {% endif %}
+      </div>
+    </nav>
+  </div>
+
+  <div class="produse-grid">
+    {% for produs in produse %}
+      {% include "app/produse/_card_produs.html" %}
+    {% endfor %}
+  </div>
+
+  <div class="catalog__meta-bar catalog__meta-bar--bottom">
+    <nav class="pagination" aria-label="Paginare produse jos">
+      <span class="pagination__info">Pagina {{ page_obj.number }} din {{ page_obj.paginator.num_pages }}</span>
+      <div class="pagination__actions">
+        {% if url_pagina_anterioara %}
+        <a href="{{ url_pagina_anterioara }}" class="button button--icon" title="Pagina anterioară">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left preview-icon"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>  
+        </a>
+        {% else %}
+        <span class="button button--icon pagination__disabled" aria-disabled="true" title="Pagina anterioară">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left preview-icon"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+        </span>
+        {% endif %}
+
+        {% if url_pagina_urmatoare %}
+        <a href="{{ url_pagina_urmatoare }}" class="button button--icon" title="Pagina următoare">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right preview-icon"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        {% else %}
+        <span class="button button--icon pagination__disabled" aria-disabled="true" title="Pagina următoare">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right preview-icon"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </span>
+        {% endif %}
+      </div>
+    </nav>
+  </div>
+  {% else %}
+  <div class="catalog__empty">
+    <h2>Nu au fost găsite produse</h2>
+    <p>Încearcă să elimini o parte din tagurile active sau revino la lista completă.</p>
+    {% if active_tags %}
+    <a href="{{ request.path }}" class="button button--primary button--sm">Resetează filtrele</a>
+    {% endif %}
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

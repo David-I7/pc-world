@@ -1,0 +1,19 @@
+{% extends "app/baza.html" %}
+{% load static %}
+
+{% block title %}{{ titlu_eroare|default:"O eroare neasteptată a avut loc" }} | PC World{% endblock %}
+
+{% block extra_html_head %}
+  <link rel="stylesheet" href="{% static 'css/eroare.css' %}" />
+{% endblock %}
+
+{% block content %}
+<section class="eroare">
+  <span class="eroare__code">{{cod_eroare}}</span>
+  <h2 class="eroare__title">{{ titlu_eroare|default:"O eroare neasteptată a avut loc" }}</h2>
+  <p class="eroare__message">{{ mesaj_eroare|default:"Ne pare rău, a apărut o eroare in timpul procesării cererii." }}</p>
+  <div class="eroare__actions">
+    <a href="{% url 'index' %}" class="button button--primary">Inapoi Acasă</a>
+  </div>
+</section>
+{% endblock %}

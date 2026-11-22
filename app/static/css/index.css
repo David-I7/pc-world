@@ -69,6 +69,7 @@
 
   /* Feedback & Status */
   --color-danger: #f8d7da;
+  --color-danger-border: #dc2626;
   --color-on-danger: #721c24;
   --color-success: #d1fae5;
   --color-on-success: #065f46;
@@ -80,15 +81,15 @@
 }
 
 :root[data-theme="dark"] {
-  --color-surface-high: #1c2026;
-  --color-surface-md: #181b20;
-  --color-surface-low: #14171d;
-  --color-surface-low-hover: #1c2026;
-  --color-surface-md-hover: #222730;
+  --color-surface-high: #212834;
+  --color-surface-md: #0f1217;
+  --color-surface-low: #181d25;
+  --color-surface-low-hover: #232a36;
+  --color-surface-md-hover: #2a3342;
 
-  --color-border-high: #374151;
-  --color-border-md: #282d36;
-  --color-border-low: #1e222a;
+  --color-border-high: #4b5563;
+  --color-border-md: #333c4d;
+  --color-border-low: #262e3d;
 
   --color-text-high: #f3f4f6;
   --color-text-md: #9ca3af;
@@ -101,6 +102,7 @@
   --color-on-primary: #0f1115;
 
   --color-danger: #721c24;
+  --color-danger-border: #ef4444;
   --color-on-danger: #f8d7da;
   --color-success: #065f46;
   --color-on-success: #d1fae5;
@@ -120,7 +122,7 @@
 
 html {
   scroll-behavior: smooth;
-  font-size: var(--font-size-body);
+  font-size: var(--font-size-body-md);
   scrollbar-width: thin;
   scrollbar-color: var(--color-border-high) transparent;
 }
@@ -203,6 +205,7 @@ h5 {
   justify-content: center;
   gap: var(--spacing-sm);
   height: 2.5rem;
+  min-height: 2.5rem;
   padding: 0 2rem;
   font-family: inherit;
   font-size: var(--font-size-body-sm);
@@ -262,23 +265,27 @@ h5 {
   padding: var(--spacing-xs);
   width: 2rem;
   height: 2rem;
+  min-height: 2rem;
   color: var(--color-text-md);
 }
 
 .button.button--sm {
   height: 2rem;
+  min-height: 2rem;
   padding: 0 var(--spacing-md);
   font-size: var(--font-size-body-xs);
 }
 
 .button.button--md {
   height: 2.5rem;
+  min-height: 2.5rem;
   padding: 0 var(--spacing-lg);
   font-size: var(--font-size-body-sm);
 }
 
 .button.button--lg {
   height: 3rem;
+  min-height: 3rem;
   padding: 0 var(--spacing-xl);
   font-size: var(--font-size-body-md);
 }

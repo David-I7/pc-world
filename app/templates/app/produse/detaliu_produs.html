@@ -1,0 +1,183 @@
+{% extends "app/baza.html" %}
+{% load static %}
+
+{% block title %}{{ produs.nume }} | PC World{% endblock %}
+
+{% block extra_html_head %}
+  <link rel="stylesheet" href="{% static 'css/produs.css' %}" />
+{% endblock %}
+
+{% block content %}
+<article class="produs-detail">
+  <header class="produs-detail__header">
+    <h2 class="produs-detail__title">{{ produs.nume }}</h2>
+    <div class="produs-detail__top-meta">
+      <span class="produs-detail__brand">Brand: <strong>{{ produs.brand.nume }}</strong></span>
+      <span class="produs-detail__meta-sep" aria-hidden="true">•</span>
+      <span class="produs-detail__code">Cod producător: <strong>{{ produs.cod_producator }}</strong></span>
+    </div>
+  </header>
+
+  <div class="produs-detail__hero">
+    <div class="produs-detail__media">
+      {% if produs.imagine %}
+      <img src="{{ produs.imagine.url }}" alt="{{ produs.nume }}" class="produs-detail__image" />
+      {% else %}
+      <img src="{% static 'imagini/produse/imagine-indisponibila.svg' %}" alt="Imagine indisponibilă" class="produs-detail__image produs-detail__image--placeholder" />
+      {% endif %}
+    </div>
+
+    <div class="produs-detail__hero-content">
+      <aside class="produs-detail__buy-box {% if produs.stoc_total < stoc_min %}produs-detail__buy-box--stoc-limitat{% endif %}" aria-label="Acțiuni achiziție">
+        <div class="produs-detail__price-wrap">
+          <span class="produs-detail__price">{{ produs.pret }} <span class="produs-detail__currency">RON</span></span>
+          {% if produs.stoc_total == 0 %}
+          <span class="produs-detail__stock produs-detail__stock--low">Stoc epuizat</span>
+          {% elif produs.stoc_total < stoc_min %}
+          <span class="produs-detail__stock produs-detail__stock--low">Stoc limitat — doar {{ produs.stoc_total }} bucăți</span>
+          {% else %}
+          <span class="produs-detail__stock produs-detail__stock--ok">În stoc</span>
+          {% endif %}
+        </div>
+
+        <div class="produs-detail__actions">
+          <button type="button" class="button button--outline">
+            <svg class="produs-detail__btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+            </svg>
+            <span>Adaugă la favorite</span>
+          </button>
+          <button
+            type="button"
+            class="button button--primary"
+            {% if produs.stoc_total == 0 %}disabled{% endif %}
+          >
+            <svg class="produs-detail__btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="8" cy="21" r="1"></circle>
+              <circle cx="19" cy="21" r="1"></circle>
+              <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+            </svg>
+            <span>Adaugă în coș</span>
+          </button>
+        </div>
+      </aside>
+
+      <div class="produs-detail__info">
+        {% if produs.culori %}
+        <div class="produs-detail__option">
+          <label for="produs-culoare" class="produs-detail__label">Culoare disponibilă</label>
+          <select id="produs-culoare" name="culoare" class="produs-detail__select">
+            {% for culoare in produs.culori %}
+            <option value="{{ culoare }}">{{ culoare }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        {% endif %}
+
+        <dl class="produs-detail__quick-info">
+          <div class="produs-detail__quick-row">
+            <dt>Tip produs</dt>
+            <dd>{{ produs.tip_produs }}</dd>
+          </div>
+          <div class="produs-detail__quick-row">
+            <dt>Garanție</dt>
+            <dd>{{ garantie_formatata }}</dd>
+          </div>
+          <div class="produs-detail__quick-row">
+            <dt>Dată lansare</dt>
+            <dd>{{ produs.data_lansare|date:"d.m.Y" }}</dd>
+          </div>
+        </dl>
+
+        {% if produs.taguri %}
+        <div class="produs-detail__tags">
+          <span class="produs-detail__tags-label">Taguri</span>
+          <div class="tag-list">
+            {% for tag in produs.taguri %}
+            <span class="tag-pill">{{ tag }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+        {% if produs.categorii.all %}
+        <div class="produs-detail__categorii">
+          <span class="produs-detail__categorii-label">Categorii</span>
+          {% for cat in produs.categorii.all %}
+          <div class="produs-detail__categorie-list">
+            <a href="{% url 'categorie' cat.nume %}" class="categorie-badge" style="--cat-color: {{ cat.culoare }};">
+              {% if cat.sigla_svg %}
+              <span class="categorie-badge__icon" aria-hidden="true">{{ cat.sigla_svg }}</span>
+              {% endif %}
+              <span>{{ cat.nume }}</span>
+            </a>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    
+  </div>
+
+  {% if produs.descriere %}
+  <section class="produs-detail__section">
+    <h3>Descriere</h3>
+    <p class="produs-detail__description">{{ produs.descriere }}</p>
+  </section>
+  {% endif %}
+
+  <section class="produs-detail__section">
+    <h3>Specificații tehnice</h3>
+    <table class="specs-table">
+      <tbody>
+        <tr>
+          <th>Brand</th>
+          <td>{{ produs.brand.nume }}</td>
+        </tr>
+        <tr>
+          <th>Cod producător</th>
+          <td>{{ produs.cod_producator }}</td>
+        </tr>
+        <tr>
+          <th>Garanție</th>
+          <td>{{ garantie_formatata }}</td>
+        </tr>
+        <tr>
+          <th>Dată lansare</th>
+          <td>{{ produs.data_lansare|date:"d.m.Y" }}</td>
+        </tr>
+        {% for spec_label, spec_val in specificatii %}
+        <tr>
+          <th>{{ spec_label }}</th>
+          <td>{{ spec_val }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  {% if produse_similare %}
+  <section class="produs-detail__section">
+    <h3>Produse din aceeași categorie</h3>
+    <div class="produse-similare">
+      {% for similar in produse_similare %}
+      <a href="{{ similar.get_absolute_url }}" class="similar-card">
+        <div class="similar-card__media">
+          {% if similar.imagine %}
+          <img src="{{ similar.imagine.url }}" alt="{{ similar.nume }}" class="similar-card__image" loading="lazy" />
+          {% else %}
+          <img src="{% static 'imagini/produse/imagine-indisponibila.svg' %}" alt="Imagine indisponibilă" class="similar-card__image" loading="lazy" />
+          {% endif %}
+        </div>
+        <div class="similar-card__body">
+          <h4 class="similar-card__title">{{ similar.nume }}</h4>
+          <span class="similar-card__price">{{ similar.pret }} RON</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+</article>
+{% endblock %}

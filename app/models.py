@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from django.core.validators import MinValueValidator
+from django.urls import reverse
+from django.utils.safestring import mark_safe
 from decimal import Decimal
 
 # Create your models here.
@@ -59,6 +61,23 @@ class Produs(models.Model):
     slug = models.SlugField(unique=True, error_messages={'unique': 'Acest slug exista deja. Alege altul.'})
     cod_producator = models.CharField(max_length=100)   
     data_lansare = models.DateField()
+    taguri = ArrayField(
+        models.CharField(max_length=50),
+        default=list,
+        blank=True,
+        help_text="Cuvinte cheie separate prin virgula.",
+    )
+
+    def get_absolute_url(self):
+        route_map: dict[str, str] = {
+            self.TipProdus.LAPTOP: 'laptop_detaliu',
+            self.TipProdus.PLACA_VIDEO: 'placa_video_detaliu',
+            self.TipProdus.PROCESOR: 'procesor_detaliu',
+        }
+        route_name = route_map.get(self.tip_produs)
+        if route_name:
+            return reverse(route_name, kwargs={'slug': self.slug})
+        return '#'
     
     def __str__(self):
         return f"{self.tip_produs} {self.brand} ({self.nume}) - {self.pret} RON"
@@ -71,7 +90,7 @@ class Laptop(Produs):
     class SistemOperare(models.TextChoices):
         WINDOWS = 'WIN','Windows'
         LINUX = 'LIN','Linux'
-        MACOS = 'MAC','macOS'
+        MACOS = 'MAC','MacOS'
         FARA_SISTEM = 'FSO','Fara sistem de operare'
     
     class RezolutieEcran(models.TextChoices):
@@ -156,9 +175,25 @@ class Categorie(models.Model):
     nume = models.CharField(max_length=100, unique=True, error_messages={'unique': 'Aceasta categorie exista deja.'})
     descriere = models.TextField()
     culoare = models.CharField(max_length=7, help_text="Culoarea trebuie sa fie in format hexazecimal (ex: #FFFFFF).")
-    sigla = models.URLField(default="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/x-circle.svg")
+    sigla = models.FileField(upload_to='sigle_categorii/', blank=True, null=True, default=None)
     data_adaugare = models.DateTimeField(auto_now_add=True, blank=True) 
     produse = models.ManyToManyField(Produs, related_name='categorii', blank=True)
+
+    @property
+    def sigla_svg(self):
+        if not self.sigla:
+            return ''
+        if getattr(self, '_sigla_svg_name', None) == self.sigla.name and hasattr(self, '_sigla_svg_content'):
+            return self._sigla_svg_content
+        try:
+            with self.sigla.open('r') as f:
+                # Mark safe este folosit pentru a marca continutul SVG ca fiind sigur pentru a fi redat in HTML, prevenind astfel probleme de securitate.
+                content = mark_safe(f.read())
+        except (FileNotFoundError, OSError, UnicodeDecodeError):
+            content = ''
+        self._sigla_svg_name = self.sigla.name
+        self._sigla_svg_content = content
+        return content
     
     def __str__(self):
         return self.nume

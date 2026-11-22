@@ -32,7 +32,7 @@ def run():
         Stoc(
             produs_id=produs_id,
             depozit_id=depozit_id,
-            cantitate=random.randint(1, 20)
+            cantitate=random.randint(1, 6)
         )
         for depozit_id, produse in depozite_produse.items()
         for produs_id in produse

@@ -11,34 +11,25 @@ from .models import Brand, PlacaVideo, Laptop, Procesor, Categorie, Depozit, Sto
 # Register your models here.
 
 
-class PCWorldAdminSite(AdminSite):
-  site_header = "PC World - Panou de administrare"
-  site_title = "PC World | Administrare"
-  index_title = "Administrarea magazinului online"
-
-  def each_context(self, request):
-      context = super().each_context(request)
-      context['site_url'] = '/app'
-      return context
-    
-app_admin_site = PCWorldAdminSite(name='admin')
-app_admin_site.register(User, UserAdmin)
-app_admin_site.register(Group, GroupAdmin)
-  
+admin.site.site_header = "PC World - Panou de administrare"
+admin.site.site_title = "PC World | Administrare"
+admin.site.index_title = "Administrarea magazinului online"
+admin.site.site_url = "/app"
+      
 fieldset_produs:list[tuple[str, dict[str, tuple[str, ...]]]] = [
   ('Informatii produs',{
-    'fields':('nume','brand','pret','descriere','tip_produs','durata_garantie','imagine','slug','cod_producator','data_lansare')
+    'fields':('nume','brand','pret','descriere','tip_produs','durata_garantie','imagine','slug','cod_producator','data_lansare','taguri')
   })
 ]
 
-@admin.register(Brand, site=app_admin_site)
+@admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):
     list_display = ('nume','website_url')
     ordering = ('nume',)
     search_fields = ('^nume','website_url',)
     search_help_text = 'Cauta dupa nume sau URL website brand.'
 
-@admin.register(PlacaVideo, site=app_admin_site)
+@admin.register(PlacaVideo)
 class PlacaVideoAdmin(admin.ModelAdmin):
     list_display = ('brand','pret','nume')
     ordering = ('brand','-pret','nume',)
@@ -52,7 +43,7 @@ class PlacaVideoAdmin(admin.ModelAdmin):
       },)
     )
 
-@admin.register(Laptop, site=app_admin_site)
+@admin.register(Laptop)
 class LaptopAdmin(admin.ModelAdmin):
     list_display = ('brand','pret','nume')
     ordering = ('brand','-pret','nume',)
@@ -66,7 +57,7 @@ class LaptopAdmin(admin.ModelAdmin):
       },)
     )
 
-@admin.register(Procesor, site=app_admin_site)
+@admin.register(Procesor)
 class ProcesorAdmin(admin.ModelAdmin):
     list_display = ('brand','pret','nume')
     ordering = ('brand','-pret','nume',)
@@ -80,7 +71,7 @@ class ProcesorAdmin(admin.ModelAdmin):
       },)
     )
    
-@admin.register(Promotie, site=app_admin_site)
+@admin.register(Promotie)
 class PromotieAdmin(admin.ModelAdmin):
     list_display = ('data_inceput_formatata','data_sfarsit_formatata','nume','discount_formatat','este_activa',)
     ordering = ('-data_inceput','data_sfarsit','nume',)
@@ -110,21 +101,21 @@ class PromotieAdmin(admin.ModelAdmin):
         else:
             return "N/A"
 
-@admin.register(Categorie, site=app_admin_site)
+@admin.register(Categorie)
 class CategorieAdmin(admin.ModelAdmin):
     list_display = ('nume','descriere')
     ordering = ('nume',)
     search_fields = ('^nume','descriere',)
     search_help_text = 'Cauta dupa nume sau descriere categorie.'
     
-@admin.register(Depozit, site=app_admin_site)
+@admin.register(Depozit)
 class DepozitAdmin(admin.ModelAdmin):
     list_display = ('nume','adresa')
     ordering = ('nume',)
     search_fields = ('^nume','^adresa__judet','^adresa__oras','^adresa__strada')
     search_help_text = 'Cauta dupa nume sau adresa depozit.'
     
-@admin.register(Stoc, site=app_admin_site)
+@admin.register(Stoc)
 class StocAdmin(admin.ModelAdmin):
     list_display = ('produs','depozit','cantitate')
     ordering = ('produs','depozit','cantitate',)
@@ -161,7 +152,7 @@ class StocAdmin(admin.ModelAdmin):
             messages.SUCCESS,
         )
 
-@admin.register(Produs, site=app_admin_site)
+@admin.register(Produs)
 class ProdusAdmin(admin.ModelAdmin):
     list_display = ('tip_produs','nume_brand','pret','nume')
     ordering = ('tip_produs','brand','-pret','nume',) 
@@ -172,7 +163,7 @@ class ProdusAdmin(admin.ModelAdmin):
     def nume_brand(self, obj):
         return obj.brand.nume
 
-@admin.register(Adresa, site=app_admin_site)
+@admin.register(Adresa)
 class AdresaAdmin(admin.ModelAdmin):  
     list_display = ('adresa_completa','este_adresa_utilizator',)
     ordering = ('judet','oras','numar','strada',)

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-7#)8)i9+zsj%wolp1bu17dqr_fg-xagc4^32dlc3*+9pw__&wk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Application definition
 
@@ -67,6 +67,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'app.ctx_processors.footer',
+                'app.ctx_processors.categorii_meniu',
             ],
         },
     },
@@ -143,3 +144,7 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
+
+STOC_MIN = 5
+PROD_PER_PAG = 6
+PRODUSE_SIMILARE_K = 4

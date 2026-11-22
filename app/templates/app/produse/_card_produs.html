@@ -1,0 +1,85 @@
+{% load static %}
+<article
+  class="produs-card"
+>
+  <div class="produs-card__media">
+    <a href="{{ produs.get_absolute_url }}" class="produs-card__image-link" aria-label="{{ produs.nume }}">
+      {% if produs.imagine %}
+      <img src="{{ produs.imagine.url }}" alt="{{ produs.nume }}" class="produs-card__image" loading="lazy" />
+      {% else %}
+      <img src="{% static 'imagini/produse/imagine-indisponibila.svg' %}" alt="Imagine indisponibilă" class="produs-card__image produs-card__image--placeholder" loading="lazy" />
+      {% endif %}
+    </a>
+    {% if produs.stoc_total < stoc_min %}
+    <span class="produs-card__stock-badge">
+      {% if produs.stoc_total == 0 %}
+      Stoc epuizat
+      {% elif produs.stoc_total == 1 %}
+      Ultimul produs în stoc
+      {% else %}
+      Stoc limitat
+      {% endif %}
+    </span>
+    {% endif %}
+  </div>
+
+  <div class="produs-card__body">
+    <div class="produs-card__meta">
+      <span class="produs-card__brand">{{ produs.brand.nume }}</span>
+      <span class="produs-card__type">{{ produs.tip_produs }}</span>
+    </div>
+
+    <h3 class="produs-card__title">
+      <a href="{{ produs.get_absolute_url }}" class="produs-card__title-link">{{ produs.nume }}</a>
+    </h3>
+
+    {% if produs.categorii.all %}
+    <div class="produs-card__categorii">
+      {% for cat in produs.categorii.all %}
+      <a href="{% url 'categorie' cat.nume %}" class="categorie-badge" style="--cat-color: {{ cat.culoare }};">
+        {% if cat.sigla_svg %}
+        <span class="categorie-badge__icon" aria-hidden="true">{{ cat.sigla_svg }}</span>
+        {% endif %}
+        <span>{{ cat.nume }}</span>
+      </a>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if produs.specificatii_scurte %}
+    <dl class="produs-card__specs">
+      {% for spec_label, spec_val in produs.specificatii_scurte %}
+      <div class="produs-card__spec-row">
+        <dt>{{ spec_label }}</dt>
+        <dd>{{ spec_val }}</dd>
+      </div>
+      {% endfor %}
+    </dl>
+    {% endif %}
+
+    {% if produs.taguri_linkuri %}
+    <div class="tag-list" aria-label="Taguri produs">
+      {% for tag_item in produs.taguri_linkuri %}
+      <a
+        href="{{ tag_item.url }}"
+        class="tag-pill {% if tag_item.activ %}tag-pill--active{% endif %}"
+      >{{ tag_item.nume }}</a>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="produs-card__footer">
+      <div class="produs-card__price-wrap">
+        <span class="produs-card__price">{{ produs.pret }} RON</span>
+      </div>
+      <button type="button" class="button button--primary button--full">
+        <svg class="produs-card__btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="8" cy="21" r="1"></circle>
+          <circle cx="19" cy="21" r="1"></circle>
+          <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+        </svg>
+        <span>Adaugă în coș</span>
+      </button>
+    </div>
+  </div>
+</article>

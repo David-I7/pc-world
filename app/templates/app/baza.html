@@ -43,7 +43,7 @@
           </ul>
 
           <div class="nav__theme">
-            <button id="theme-toggle" class="button button--icon" type="button" aria-label="Schimbă tema între luminos și întunecat" title="Comută tema (Dark / Light)">
+            <button data-theme-toggle class="button button--icon" type="button" aria-label="Schimbă tema între luminos și întunecat" title="Comută tema (Dark / Light)">
               <svg class="theme-toggle__icon" viewBox="0 0 24 24" aria-hidden="true">
                 <circle cx="12" cy="12" r="5"></circle>
                 <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -69,40 +69,89 @@
           <span class="brand__badge">PC</span>
           <span class="brand__text">World</span>
         </a>
-        <label for="nav-toggle" class="drawer__close button button--icon" aria-label="Închide meniul">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </label>
+        <div class="drawer__header-actions">
+          <button data-theme-toggle class="button button--icon" type="button" aria-label="Schimbă tema între luminos și întunecat" title="Comută tema (Dark / Light)">
+            <svg class="theme-toggle__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </button>
+          <label for="nav-toggle" class="drawer__close button button--icon" aria-label="Închide meniul">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </label>
+        </div>
       </div>
 
       <nav class="drawer__content" aria-label="Navigație mobilă">
         <ul class="drawer__menu">
           <li class="drawer__item">
-            <a href="{% url 'index' %}" class="drawer__link">Acasă</a>
-            <ul class="drawer__submenu">
-              <li><a href="{% url 'index' %}#bun-venit" class="drawer__sublink">Bun venit</a></li>
-              <li><a href="{% url 'index' %}#laptopuri" class="drawer__sublink">Laptopuri</a></li>
-              <li><a href="{% url 'index' %}#placi-video" class="drawer__sublink">Placi video</a></li>
-              <li><a href="{% url 'index' %}#procesoare" class="drawer__sublink">Procesoare</a></li>
-              <li><a href="{% url 'index' %}#promotii" class="drawer__sublink">Promoții</a></li>
-            </ul>
+            <details class="drawer__details">
+              <summary class="drawer__link drawer__summary">
+                <span>Acasă</span>
+                <span class="nav__caret" aria-hidden="true"></span>
+              </summary>
+              <ul class="drawer__submenu">
+                <li><a href="{% url 'index' %}" class="drawer__sublink">Pagina principală</a></li>
+                <li><a href="{% url 'index' %}#bun-venit" class="drawer__sublink">Bun venit</a></li>
+                <li><a href="{% url 'index' %}#laptopuri" class="drawer__sublink">Laptopuri</a></li>
+                <li><a href="{% url 'index' %}#placi-video" class="drawer__sublink">Placi video</a></li>
+                <li><a href="{% url 'index' %}#procesoare" class="drawer__sublink">Procesoare</a></li>
+                <li><a href="{% url 'index' %}#promotii" class="drawer__sublink">Promoții</a></li>
+              </ul>
+            </details>
           </li>
 
           <li class="drawer__item">
-            <div class="drawer__link">Produse</div>
-            <ul class="drawer__submenu">
-              <li class="submenu__item">
-                <a href="{% url 'laptopuri' %}" class="submenu__link">Laptopuri</a>
-              </li>
-              <li class="submenu__item">
-                <a href="{% url 'placi_video' %}" class="submenu__link">Placi video</a>
-              </li>
-              <li class="submenu__item">
-                <a href="{% url 'procesoare' %}" class="submenu__link">Procesoare</a>
-              </li>
-            </ul>
+            <details class="drawer__details">
+              <summary class="drawer__link drawer__summary">
+                <span>Produse</span>
+                <span class="nav__caret" aria-hidden="true"></span>
+              </summary>
+              <ul class="drawer__submenu">
+                <li class="submenu__item">
+                  <a href="{% url 'laptopuri' %}" class="submenu__link">Laptopuri</a>
+                </li>
+                <li class="submenu__item">
+                  <a href="{% url 'placi_video' %}" class="submenu__link">Placi video</a>
+                </li>
+                <li class="submenu__item">
+                  <a href="{% url 'procesoare' %}" class="submenu__link">Procesoare</a>
+                </li>
+              </ul>
+            </details>
+          </li>
+
+          <li class="drawer__item">
+            <details class="drawer__details">
+              <summary class="drawer__link drawer__summary">
+                <span>Categorii</span>
+                <span class="nav__caret" aria-hidden="true"></span>
+              </summary>
+              <ul class="drawer__submenu">
+                {% for cat in categorii_meniu %}
+                <li class="submenu__item">
+                  <a href="{% url 'categorie' cat.nume %}" class="submenu__link submenu__link--categorie" style="--cat-color: {{ cat.culoare }};">
+                    {% if cat.sigla_svg %}
+                    <span class="submenu__cat-icon" aria-hidden="true">
+                      {{ cat.sigla_svg }}
+                    </span>
+                    {% endif %}
+                    <span>{{ cat.nume }}</span>
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
+            </details>
           </li>
 
           <li class="drawer__item">
@@ -136,7 +185,7 @@
               <span>Produse</span>
               <span class="nav__caret" aria-hidden="true"></span>
             </div>
-            <ul class="submenu" aria-label="Categorii Produse">
+            <ul class="submenu" aria-label="Tipuri Produse">
               <li class="submenu__item">
                 <a href="{% url 'laptopuri' %}" class="submenu__link">Laptopuri</a>
               </li>
@@ -146,6 +195,27 @@
               <li class="submenu__item">
                 <a href="{% url 'procesoare' %}" class="submenu__link">Procesoare</a>
               </li>
+            </ul>
+          </li>
+
+          <li class="nav__item">
+            <div class="nav__link">
+              <span>Categorii</span>
+              <span class="nav__caret" aria-hidden="true"></span>
+            </div>
+            <ul class="submenu" aria-label="Categorii Produse">
+              {% for cat in categorii_meniu %}
+              <li class="submenu__item">
+                <a href="{% url 'categorie' cat.nume %}" class="submenu__link submenu__link--categorie" style="--cat-color: {{ cat.culoare }};">
+                  {% if cat.sigla_svg %}
+                  <span class="submenu__cat-icon" aria-hidden="true">
+                    {{ cat.sigla_svg }}
+                  </span>
+                  {% endif %}
+                  <span>{{ cat.nume }}</span>
+                </a>
+              </li>
+              {% endfor %}
             </ul>
           </li>
 
