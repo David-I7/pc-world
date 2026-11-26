@@ -11,7 +11,7 @@ class Accesare:
     
     def __init__(self, ip_client: str | None, url: str, parametri: QueryDict = QueryDict()) -> None:
         self.id: int = Accesare.contor 
-        Accesare.contor +=1
+        Accesare.contor += 1
         
         self.ip_client: str = ip_client or "undefined"
         self.url: str = url
@@ -19,7 +19,8 @@ class Accesare:
         self.data: datetime = datetime.now()
         
         path = urlparse(self.url).path       
-        self._pagina = "/" if len(path) == 0 else path 
+        self._pagina = "/" if len(path) == 0 else path
+        self._pagina = self._pagina[:-1] if self._pagina.endswith("/") and len(self._pagina) > 1 else self._pagina
         
         Accesare.accesari.append(self)
         Accesare.map_nr_accesari_pe_pagini[self._pagina] = Accesare.map_nr_accesari_pe_pagini.get(self._pagina, 0) + 1
@@ -44,7 +45,7 @@ class Accesare:
             format = "%d %B %Y"
         elif data == "timp":
             format = "%H:%M:%S"
-        else: format = "%A, %d %B %Y"
+        else: format = "%A, %d %B %Y %H:%M:%S"
         
         return formateaza_data(format, self.data)
     
@@ -82,7 +83,11 @@ class Accesare:
       return min(Accesare.map_nr_accesari_pe_pagini.items(), key=lambda x: x[1])
 
 def creaza_accesare(request:HttpRequest):
-    return Accesare(request.META.get("REMOTE_ADDR"),request.build_absolute_uri(),request.GET)
+    str_lista_ip = request.META.get('HTTP_X_FORWARDED_FOR')
+    if str_lista_ip:
+        return Accesare(str_lista_ip.split(',')[-1].strip(),request.build_absolute_uri(),request.GET)
+    else:
+        return Accesare(request.META.get("REMOTE_ADDR"),request.build_absolute_uri(),request.GET)
 
 class HttpRequestCuAccesare(HttpRequest):
     accesare:Accesare

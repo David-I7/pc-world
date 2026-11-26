@@ -128,7 +128,6 @@ class StocAdmin(admin.ModelAdmin):
     def export_csv_stocuri(self, request, queryset):
         response = HttpResponse(content_type='text/csv; charset=utf-8')
         response['Content-Disposition'] = 'attachment; filename="stocuri.csv"'
-        response.write('\ufeff')
 
         writer = csv.writer(response)
         writer.writerow(['Produs', 'Brand', 'Tip Produs', 'Depozit', 'Cantitate'])

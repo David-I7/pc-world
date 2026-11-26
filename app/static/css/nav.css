@@ -210,6 +210,12 @@
   stroke-width: 2;
 }
 
+.header__h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .header__toggle {
   display: none;
 }

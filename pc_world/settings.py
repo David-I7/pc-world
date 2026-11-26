@@ -129,11 +129,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
+# Prefixul URL pentru fișierele statice
 STATIC_URL = '/static/'
+# De unde serveste django fisierele statice in timpul dezvoltarii
 STATICFILES_DIRS = [os.path.join(BASE_DIR,  "static")]
+# Unde se vor colecta fișierele statice pentru producție (folosit cu py manage.py collectstatic)
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
+# Prefixul URL pentru fișierele media
 MEDIA_URL = '/media/'
+# Unde se vor salva fișierele media încărcate de utilizatori
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Email

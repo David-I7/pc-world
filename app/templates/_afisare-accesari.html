@@ -1,7 +1,7 @@
 {% if accesari %}
 
-  <section style="margin: 24px 0px; overflow-x: auto;">
-    <h2 style="margin-bottom: 16px;">{{ titlu }}</h2>
+  <section style="margin: 24px 0px;">
+    <h3 style="margin-bottom: 16px;">{{ titlu }}</h3>
     {% if afisare == "lista" %}
     <ul style="padding: 0 24px;">
       {% for accesare in accesari %}
@@ -24,6 +24,7 @@
       {% endfor %}
     </ul>
     {% elif afisare == "tabel" %}
+      <div style="overflow-x: auto;">
         <table style="width:100%; border-collapse: collapse;">
             <thead>
                 <tr>
@@ -58,6 +59,7 @@
               {% endfor %}
             </tbody>
         </table>
+      </div>
     {% endif %}
     </section>
 

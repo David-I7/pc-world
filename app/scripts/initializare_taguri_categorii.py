@@ -17,7 +17,7 @@ def run():
         cpu.taguri = genereaza_taguri_procesor(cpu)
         cpu.save(update_fields=['taguri'])
 
-    Categorie.objects.get_or_create(
+    Categorie.objects.update_or_create(
         nume='Categorie Fara Produse',
         defaults={
             'descriere': 'Categorie goala folosita exclusiv pentru testarea meniului dinamic.',

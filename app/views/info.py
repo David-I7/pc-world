@@ -1,6 +1,8 @@
 from django.shortcuts import render
 
-def handler(request):
+from app.lib.accesare import HttpRequestCuAccesare
+
+def handler(request: HttpRequestCuAccesare):
     accesare = request.accesare
     parametru_data = accesare.parametri.get("data") or ""
     

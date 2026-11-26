@@ -189,7 +189,7 @@ class Categorie(models.Model):
             with self.sigla.open('r') as f:
                 # Mark safe este folosit pentru a marca continutul SVG ca fiind sigur pentru a fi redat in HTML, prevenind astfel probleme de securitate.
                 content = mark_safe(f.read())
-        except (FileNotFoundError, OSError, UnicodeDecodeError):
+        except (OSError):
             content = ''
         self._sigla_svg_name = self.sigla.name
         self._sigla_svg_content = content
