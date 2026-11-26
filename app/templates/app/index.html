@@ -4,6 +4,7 @@
 
 {% block extra_html_head %}
   <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/produse.css' %}" />
 {% endblock %}
 
 {% block content %}
@@ -19,9 +20,53 @@
         </a>
       </div>
     </section>
-    <section id="laptopuri"></section>
-    <section id="placi-video"></section>
-    <section id="procesoare"></section>
-    <section id="promotii"></section>
+    <section id="laptopuri">
+      <h2 class="section-title">
+        <a href="{% url 'laptopuri' %}">
+         Laptopuri
+        </a>  
+      </h2>
+      <div class="produse-list">
+        {% for produs in laptopuri %}
+            {% include "app/produse/_card_produs.html" %}
+        {% endfor%}
+      </div>
+    </section>
+    <section id="placi-video">
+      <h2 class="section-title">
+        <a href="{% url 'placi_video' %}">
+         Placi Video
+        </a>  
+      </h2>
+      <div class="produse-list">
+        {% for produs in placi_video %}
+            {% include "app/produse/_card_produs.html" %}
+        {% endfor%}
+      </div>
+    </section>
+    <section id="procesoare">
+      <h2 class="section-title">
+        <a href="{% url 'procesoare' %}">
+         Procesoare
+        </a>  
+      </h2>
+      <div class="produse-list">
+        {% for produs in procesoare %}
+            {% include "app/produse/_card_produs.html" %}
+        {% endfor%}
+      </div>
+    </section>
+    <section id="promotii">
+      <h2 class="section-title">
+        <a href="{% url 'promotii' %}">
+         Promotii
+        </a>  
+      </h2>
+      <div class="produse-list">
+        {% for produs in promotii %}
+            {% include "app/produse/_card_produs.html" %}
+        {% endfor%}
+      </div>
+    </section>
     
 {% endblock %}

@@ -1,10 +1,12 @@
+from datetime import datetime
+from typing import Any
 from urllib.parse import urlencode
-from pc_world.settings import PROD_PER_PAG, PRODUSE_SIMILARE_K, STOC_MIN
+from pc_world.settings import PROD_PER_PAG, PRODUSE_DISPLAY_K, PRODUSE_SIMILARE_K, STOC_MIN
 from django.core.paginator import Paginator
 from django.db.models import Sum
 
 from .specificatii import genereaza_specificatii_cheie, genereaza_specificatii_detaliate
-from ...models import Produs
+from ...models import Produs, Promotie
 
 COLOANE_SORTARE_COMUNE = [
     ('nume', 'Nume'),
@@ -106,6 +108,7 @@ def proceseaza_listare_produse(request, queryset, coloane_sortare):
 
     produse_list = list(page_obj.object_list)
     for produs in produse_list:
+        produs.listare = "DETALIATA"
         produs.specificatii_scurte = genereaza_specificatii_cheie(produs)
         produs.taguri_linkuri = []
         for tag in produs.taguri or []:
@@ -174,7 +177,7 @@ def proceseaza_listare_produse(request, queryset, coloane_sortare):
         'url_reset_sortare': url_reset_sortare,
         'stoc_min': STOC_MIN,
     }
-
+ 
 
 def obtine_produse_similare(produs, k=None):
     if k is None:
@@ -184,17 +187,57 @@ def obtine_produse_similare(produs, k=None):
     if not categorii_ids:
         return []
 
-    return list(
+    produse: list[Any] = list(
         Produs.objects.filter(categorii__id__in=categorii_ids)
         .exclude(pk=produs.pk)
         .select_related('brand')
         .distinct()
         .order_by('?')[:k]
     )
+    
+    for p in produse:
+        p.listare = "COMPACTA"
+        
+    return produse
+  
+def obtine_produse_display(tip_produs: Produs.TipProdus, k=None):
+    if k is None:
+        k = PRODUSE_DISPLAY_K
+
+    produse: list[Any] = list(
+        Produs.objects.filter(tip_produs=tip_produs)
+        .select_related('brand')
+        .order_by('?')[:k]
+    )
+
+    for p in produse:
+        p.listare = "COMPACTA"
+
+    return produse
+  
+def obtine_produse_promotii(k=None):
+    if k is None:
+        k = PRODUSE_DISPLAY_K
+
+    now = datetime.now()
+    promotii_active = (
+        Promotie.objects.filter(data_inceput__lte=now, data_sfarsit__gte=now).order_by('data_sfarsit')
+    )
+    produse_promotii = []
+    for promotie in promotii_active:
+        limit = k - len(produse_promotii)
+        if limit <= 0:
+            break
+        produse_promotii.extend(promotie.produse.select_related('brand').order_by('?')[:limit])
+
+    for p in produse_promotii:
+        p.listare = "COMPACTA"
+
+    return produse_promotii
 
 def construieste_context_detaliu(produs):
     return {
-        'produs': produs,
+        'produs': produs,        
         'specificatii': genereaza_specificatii_detaliate(produs),
         'garantie_formatata': formateaza_garantie(produs.durata_garantie),
         'produse_similare': obtine_produse_similare(produs),

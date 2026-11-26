@@ -5,6 +5,7 @@
 
 {% block extra_html_head %}
   <link rel="stylesheet" href="{% static 'css/produs.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/produse.css' %}" />
 {% endblock %}
 
 {% block content %}
@@ -102,16 +103,16 @@
         {% if produs.categorii.all %}
         <div class="produs-detail__categorii">
           <span class="produs-detail__categorii-label">Categorii</span>
-          {% for cat in produs.categorii.all %}
           <div class="produs-detail__categorie-list">
+            {% for cat in produs.categorii.all %}
             <a href="{% url 'categorie' cat.nume %}" class="categorie-badge" style="--cat-color: {{ cat.culoare }};">
               {% if cat.sigla_svg %}
               <span class="categorie-badge__icon" aria-hidden="true">{{ cat.sigla_svg }}</span>
               {% endif %}
               <span>{{ cat.nume }}</span>
             </a>
+            {% endfor %}
           </div>
-          {% endfor %}
         </div>
         {% endif %}
       </div>
@@ -160,7 +161,12 @@
   {% if produse_similare %}
   <section class="produs-detail__section">
     <h3>Produse din aceeași categorie</h3>
-    <div class="produse-similare">
+    <div class="produse-list">
+      {% for similar in produse_similare %}
+        {% include "app/produse/_card_produs.html" with produs=similar %}
+      {% endfor %}
+    </div>
+    {% comment %} <div class="produse-similare">
       {% for similar in produse_similare %}
       <a href="{{ similar.get_absolute_url }}" class="similar-card">
         <div class="similar-card__media">
@@ -176,7 +182,7 @@
         </div>
       </a>
       {% endfor %}
-    </div>
+    </div> {% endcomment %}
   </section>
   {% endif %}
 </article>
