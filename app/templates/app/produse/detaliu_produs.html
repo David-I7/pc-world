@@ -30,17 +30,42 @@
 
     <div class="produs-detail__hero-content">
       <aside class="produs-detail__buy-box {% if produs.stoc_total < stoc_min %}produs-detail__buy-box--stoc-limitat{% endif %}" aria-label="Acțiuni achiziție">
-        <div class="produs-detail__price-wrap">
-          <span class="produs-detail__price">{{ produs.pret }} <span class="produs-detail__currency">RON</span></span>
-          {% if produs.stoc_total == 0 %}
-          <span class="produs-detail__stock produs-detail__stock--low">Stoc epuizat</span>
-          {% elif produs.stoc_total < stoc_min %}
-          <span class="produs-detail__stock produs-detail__stock--low">Stoc limitat — doar {{ produs.stoc_total }} bucăți</span>
+        
+        <div class="produs-detail__price-group">
+          {% if produs.info_promotie %}
+            <div class="flex-col gap-sm">
+              <div class="produs-detail__price-meta">
+                <del class="produs-detail__price-old">{{ produs.info_promotie.pret_vechi }} RON</del>
+                <span class="produs-detail__promo-badge">{{ produs.info_promotie.label_discount }}</span>
+              </div>
+              <div class="produs-detail__price-wrap">
+                <span class="produs-detail__price">{{ produs.info_promotie.pret_nou }} <span class="produs-detail__currency">RON</span></span>
+                {% if produs.stoc_total == 0 %}
+                <span class="produs-detail__stock produs-detail__stock--low">Stoc epuizat</span>
+                {% elif produs.stoc_total < stoc_min %}
+                <span class="produs-detail__stock produs-detail__stock--low">Stoc limitat — doar {{ produs.stoc_total }} bucăți</span>
+                {% else %}
+                <span class="produs-detail__stock produs-detail__stock--ok">În stoc</span>
+                {% endif %}
+              </div>
+              <span class="produs-detail__promo-name">
+                Promoție activă: <strong>{{ produs.info_promotie.promotie.nume }}</strong>{% if produs.info_promotie.numar_promotii_active > 1 %} (cea mai avantajoasă din {{ produs.info_promotie.numar_promotii_active }} oferte active){% endif %}
+              </span>
+            </div>
           {% else %}
-          <span class="produs-detail__stock produs-detail__stock--ok">În stoc</span>
+            <div class="produs-detail__price-wrap">
+              <span class="produs-detail__price">{{ produs.pret }} <span class="produs-detail__currency">RON</span></span>
+              {% if produs.stoc_total == 0 %}
+              <span class="produs-detail__stock produs-detail__stock--low">Stoc epuizat</span>
+              {% elif produs.stoc_total < stoc_min %}
+              <span class="produs-detail__stock produs-detail__stock--low">Stoc limitat — doar {{ produs.stoc_total }} bucăți</span>
+              {% else %}
+              <span class="produs-detail__stock produs-detail__stock--ok">În stoc</span>
+              {% endif %}
+            </div>
           {% endif %}
         </div>
-
+          
         <div class="produs-detail__actions">
           <button type="button" class="button button--outline">
             <svg class="produs-detail__btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -66,7 +91,7 @@
       <div class="produs-detail__info">
         {% if produs.culori %}
         <div class="produs-detail__option">
-          <label for="produs-culoare" class="produs-detail__label">Culoare disponibilă</label>
+          <label for="produs-culoare" class="produs-detail__label">Culori</label>
           <select id="produs-culoare" name="culoare" class="produs-detail__select">
             {% for culoare in produs.culori %}
             <option value="{{ culoare }}">{{ culoare }}</option>
@@ -117,8 +142,6 @@
         {% endif %}
       </div>
     </div>
-
-    
   </div>
 
   {% if produs.descriere %}
@@ -166,23 +189,6 @@
         {% include "app/produse/_card_produs.html" with produs=similar %}
       {% endfor %}
     </div>
-    {% comment %} <div class="produse-similare">
-      {% for similar in produse_similare %}
-      <a href="{{ similar.get_absolute_url }}" class="similar-card">
-        <div class="similar-card__media">
-          {% if similar.imagine %}
-          <img src="{{ similar.imagine.url }}" alt="{{ similar.nume }}" class="similar-card__image" loading="lazy" />
-          {% else %}
-          <img src="{% static 'imagini/produse/imagine-indisponibila.svg' %}" alt="Imagine indisponibilă" class="similar-card__image" loading="lazy" />
-          {% endif %}
-        </div>
-        <div class="similar-card__body">
-          <h4 class="similar-card__title">{{ similar.nume }}</h4>
-          <span class="similar-card__price">{{ similar.pret }} RON</span>
-        </div>
-      </a>
-      {% endfor %}
-    </div> {% endcomment %}
   </section>
   {% endif %}
 </article>

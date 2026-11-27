@@ -161,10 +161,53 @@
 
 .produs-detail__price-wrap {
   display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.produs-detail__price-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.produs-detail__price-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
   gap: var(--spacing-sm);
 }
 
+.produs-detail__price-old {
+  font-size: var(--font-size-body-md);
+  color: var(--color-text-low);
+  text-decoration: line-through;
+}
+
+.produs-detail__promo-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.55rem;
+  border-radius: var(--radius-full);
+  background-color: var(--color-danger);
+  color: var(--color-on-danger);
+  border: 1px solid var(--color-danger-border);
+  font-size: var(--font-size-body-xs);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+}
+
+.produs-detail__promo-name {
+  font-size: var(--font-size-body-xs);
+  color: var(--color-text-md);
+}
+
 .produs-detail__price {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
   font-size: 2rem;
   font-weight: var(--font-weight-heavy);
   color: var(--color-primary);
@@ -187,14 +230,11 @@
 }
 
 .produs-detail__stock--ok {
-  background-color: var(--color-success);
   color: var(--color-on-success);
 }
 
 .produs-detail__stock--low {
-  background-color: var(--color-danger);
   color: var(--color-on-danger);
-  border: 1px solid var(--color-danger-border);
 }
 
 .produs-detail__actions {

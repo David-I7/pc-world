@@ -76,7 +76,15 @@
 
     <div class="produs-card__footer">
       <div class="produs-card__price-wrap">
+        {% if produs.info_promotie %}
+        <div class="produs-card__price-meta">
+          <del class="produs-card__price-old">{{ produs.info_promotie.pret_vechi }} RON</del>
+          <span class="produs-card__promo-badge">{{ produs.info_promotie.label_discount }}</span>
+        </div>
+        <span class="produs-card__price">{{ produs.info_promotie.pret_nou }} RON</span>
+        {% else %}
         <span class="produs-card__price">{{ produs.pret }} RON</span>
+        {% endif %}
       </div>
       <button type="button" class="button button--primary button--full">
         <svg class="produs-card__btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

@@ -1,12 +1,18 @@
-from datetime import datetime
 from typing import Any
 from urllib.parse import urlencode
 from pc_world.settings import PROD_PER_PAG, PRODUSE_DISPLAY_K, PRODUSE_SIMILARE_K, STOC_MIN
 from django.core.paginator import Paginator
 from django.db.models import Sum
+from django.utils import timezone
 
+from .promotii import (
+    prefetch_promotii_active,
+    ataseaza_cea_mai_buna_promotie,
+    obtine_promotii_active_queryset,
+    sorteaza_produse_dupa_pret_efectiv,
+)
 from .specificatii import genereaza_specificatii_cheie, genereaza_specificatii_detaliate
-from ...models import Produs, Promotie
+from ...models import Produs
 
 COLOANE_SORTARE_COMUNE = [
     ('nume', 'Nume'),
@@ -62,17 +68,17 @@ def formateaza_garantie(duration):
 
 
 def proceseaza_listare_produse(request, queryset, coloane_sortare):
+    now = timezone.now()
     qs = (
         queryset.select_related('brand')
-        .prefetch_related('categorii')
+        .prefetch_related('categorii', prefetch_promotii_active(now))
         .annotate(stoc_total=Sum('stocuri__cantitate', default=0))
     )
 
     active_tags = []
     for tag in request.GET.getlist('tag'):
-        cleaned = tag.strip()
-        if cleaned and cleaned not in active_tags:
-            active_tags.append(cleaned)
+        if tag not in active_tags:
+            active_tags.append(tag)
 
     if active_tags:
         qs = qs.filter(taguri__contains=active_tags)
@@ -82,38 +88,44 @@ def proceseaza_listare_produse(request, queryset, coloane_sortare):
     current_sort = request.GET.get('sort', '').strip().lower()
 
     if current_col not in allowed_cols:
-        current_col = ''
+        current_col = 'data_lansare'
     if current_sort not in ('a', 'd'):
-        current_sort = ''
+        current_sort = 'a'
 
-    if current_col:
+    per_page = PROD_PER_PAG
+    if current_col == 'pret':
+        produse_cu_promotii = ataseaza_cea_mai_buna_promotie(qs)
+        produse_sortate = sorteaza_produse_dupa_pret_efectiv(
+            produse_cu_promotii,
+            descrescator=(current_sort == 'd'),
+        )
+        paginator = Paginator(produse_sortate, per_page)
+        page_obj = paginator.get_page(request.GET.get('page', 1))
+        produse_list = list(page_obj.object_list)
+    else:  
         order_field = 'stoc_total' if current_col == 'stoc' else current_col
         if current_sort == 'd':
             qs = qs.order_by(f'-{order_field}', 'id')
         else:
             current_sort = 'a'
             qs = qs.order_by(order_field, 'id')
-    else:
-        qs = qs.order_by('data_lansare' if current_sort == 'a' else '-data_lansare', 'id')
 
-    per_page = PROD_PER_PAG
-    paginator = Paginator(qs, per_page)
-    page_obj = paginator.get_page(request.GET.get('page', 1))
+        paginator = Paginator(qs, per_page)
+        page_obj = paginator.get_page(request.GET.get('page', 1))
+        produse_list = ataseaza_cea_mai_buna_promotie(list(page_obj.object_list))
 
     total_count = paginator.count
     start_index = page_obj.start_index() if total_count > 0 else 0
     end_index = page_obj.end_index() if total_count > 0 else 0
 
     base_path = request.path
-
-    produse_list = list(page_obj.object_list)
     for produs in produse_list:
-        produs.listare = "DETALIATA"
-        produs.specificatii_scurte = genereaza_specificatii_cheie(produs)
-        produs.taguri_linkuri = []
+        produs.listare = "DETALIATA" #type: ignore
+        produs.specificatii_scurte = genereaza_specificatii_cheie(produs) # type: ignore
+        produs.taguri_linkuri = [] # type: ignore
         for tag in produs.taguri or []:
             next_tags = active_tags if tag in active_tags else active_tags + [tag]
-            produs.taguri_linkuri.append({
+            produs.taguri_linkuri.append({ #type: ignore
                 'nume': tag,
                 'activ': tag in active_tags,
                 'url': construieste_url_query(
@@ -187,57 +199,76 @@ def obtine_produse_similare(produs, k=None):
     if not categorii_ids:
         return []
 
+    now = timezone.now()
     produse: list[Any] = list(
         Produs.objects.filter(categorii__id__in=categorii_ids)
         .exclude(pk=produs.pk)
         .select_related('brand')
+        .prefetch_related(prefetch_promotii_active(now))
         .distinct()
         .order_by('?')[:k]
     )
-    
+
+    ataseaza_cea_mai_buna_promotie(produse)
     for p in produse:
         p.listare = "COMPACTA"
-        
+
     return produse
-  
+
+
 def obtine_produse_display(tip_produs: Produs.TipProdus, k=None):
     if k is None:
         k = PRODUSE_DISPLAY_K
 
-    produse: list[Any] = list(
+    now = timezone.now()
+    produse_cu_promotii: list[Any] = list(
         Produs.objects.filter(tip_produs=tip_produs)
         .select_related('brand')
+        .prefetch_related(prefetch_promotii_active(now))
         .order_by('?')[:k]
     )
 
-    for p in produse:
+    ataseaza_cea_mai_buna_promotie(produse_cu_promotii)
+    for p in produse_cu_promotii:
         p.listare = "COMPACTA"
 
-    return produse
-  
+    return produse_cu_promotii
+
+
 def obtine_produse_promotii(k=None):
     if k is None:
         k = PRODUSE_DISPLAY_K
 
-    now = datetime.now()
-    promotii_active = (
-        Promotie.objects.filter(data_inceput__lte=now, data_sfarsit__gte=now).order_by('data_sfarsit')
-    )
-    produse_promotii = []
+    now = timezone.now()
+    promotii_active = obtine_promotii_active_queryset(now).order_by('data_sfarsit')
+    produse_cu_promotii: list[Any] = []
+    seen_ids: set[int] = set()
+
     for promotie in promotii_active:
-        limit = k - len(produse_promotii)
+        limit = k - len(produse_cu_promotii)
         if limit <= 0:
             break
-        produse_promotii.extend(promotie.produse.select_related('brand').order_by('?')[:limit])
+        batch = (
+            promotie.produse.exclude(pk__in=seen_ids)
+            .select_related('brand')
+            .prefetch_related(prefetch_promotii_active(now))
+            .order_by('?')[:limit]
+        )
+        for p in batch:
+            seen_ids.add(p.pk)
+            produse_cu_promotii.append(p)
 
-    for p in produse_promotii:
+    ataseaza_cea_mai_buna_promotie(produse_cu_promotii)
+    for p in produse_cu_promotii:
         p.listare = "COMPACTA"
 
-    return produse_promotii
+    return produse_cu_promotii
+
 
 def construieste_context_detaliu(produs):
+    ataseaza_cea_mai_buna_promotie([produs])
     return {
-        'produs': produs,        
+        'produs': produs,
         'specificatii': genereaza_specificatii_detaliate(produs),
         'garantie_formatata': formateaza_garantie(produs.durata_garantie),
         'produse_similare': obtine_produse_similare(produs),

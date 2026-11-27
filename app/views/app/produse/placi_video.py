@@ -1,9 +1,10 @@
+from django.utils import timezone
 from django.db.models import Sum
 from django.shortcuts import render
 
-from ....utils.produse.specificatii import genereaza_specificatii_detaliate
-from ....models import PlacaVideo
-from ....utils.produse.listare_produse import COLOANE_SORTARE_PLACA_VIDEO, construieste_context_detaliu, proceseaza_listare_produse
+from app.utils.produse.promotii import prefetch_promotii_active
+from app.models import PlacaVideo
+from app.utils.produse.listare_produse import COLOANE_SORTARE_PLACA_VIDEO, construieste_context_detaliu, proceseaza_listare_produse
 
 def handler(request):
     context = proceseaza_listare_produse(
@@ -22,7 +23,7 @@ def handler(request):
 def detaliu(request, slug):
     produs = (
         PlacaVideo.objects.select_related('brand')
-        .prefetch_related('categorii')
+        .prefetch_related('categorii', prefetch_promotii_active(timezone.now()))
         .annotate(stoc_total=Sum('stocuri__cantitate', default=0))
         .filter(slug=slug)
         .first()
