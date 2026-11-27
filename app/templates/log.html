@@ -14,9 +14,9 @@
         </ul>
       {% endif %}
       
-      {% include "_afisare-accesari.html" with accesari=accesari_iduri titlu="Accesări Iduri" afisare=afisare atribute=atribute only %}
+      {% include "_afisare_accesari.html" with accesari=accesari_iduri titlu="Accesări Iduri" afisare=afisare atribute=atribute only %}
 
-      {% include "_afisare-accesari.html" with accesari=accesari_ultimele titlu="Accesări Ultimele" afisare=afisare atribute=atribute only %}
+      {% include "_afisare_accesari.html" with accesari=accesari_ultimele titlu="Accesări Ultimele" afisare=afisare atribute=atribute only %}
         
       <p> Cea mai putin accesată pagină: <span style="font-weight: bold;">{{ cea_mai_putin_accesata_pagina }} </span> cu <span style="font-weight: bold;">{{ nr_accesari_cea_mai_putin_accesata_pagina }} </span> accesări</p>
       <p> Cea mai accesată pagină: <span style="font-weight: bold;">{{ cea_mai_accesata_pagina }} </span> cu <span style="font-weight: bold;">{{ nr_accesari_cea_mai_accesata_pagina }} </span> accesări</p>

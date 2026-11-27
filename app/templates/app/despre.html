@@ -69,10 +69,7 @@
       <article class="despre-card">
         <div class="despre-card__body">
           <div class="despre-card__icon-wrapper" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-              <line x1="2" y1="20" x2="22" y2="20"></line>
-            </svg>
+            {% include "app/icons/laptop.html" only %}
           </div>
           <h3 class="despre-card__title">Laptopuri</h3>
           <p class="despre-card__text">
@@ -87,18 +84,7 @@
       <article class="despre-card">
         <div class="despre-card__body">
           <div class="despre-card__icon-wrapper" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
-              <rect x="9" y="9" width="6" height="6"></rect>
-              <line x1="9" y1="1" x2="9" y2="4"></line>
-              <line x1="15" y1="1" x2="15" y2="4"></line>
-              <line x1="9" y1="20" x2="9" y2="23"></line>
-              <line x1="15" y1="20" x2="15" y2="23"></line>
-              <line x1="20" y1="9" x2="23" y2="9"></line>
-              <line x1="20" y1="14" x2="23" y2="14"></line>
-              <line x1="1" y1="9" x2="4" y2="9"></line>
-              <line x1="1" y1="14" x2="4" y2="14"></line>
-            </svg>
+            {% include "app/icons/cpu.html" only %}
           </div>
           <h3 class="despre-card__title">Procesoare</h3>
           <p class="despre-card__text">
@@ -113,9 +99,7 @@
       <article class="despre-card">
         <div class="despre-card__body">
           <div class="despre-card__icon-wrapper" aria-hidden="true">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"  xmlns="http://www.w3.org/2000/svg">
-              <path stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" d="M6.875 11C6.875 10.7291 6.92835 10.4609 7.032 10.2107C7.13565 9.96048 7.28757 9.73311 7.47909 9.54159C7.67061 9.35007 7.89798 9.19815 8.14822 9.0945C8.39845 8.99085 8.66665 8.9375 8.9375 8.9375C9.20835 8.9375 9.47655 8.99085 9.72678 9.0945C9.97702 9.19815 10.2044 9.35007 10.3959 9.54159C10.5874 9.73311 10.7394 9.96048 10.843 10.2107C10.9467 10.4609 11 10.7291 11 11C11 11.547 10.7827 12.0716 10.3959 12.4584C10.0091 12.8452 9.48451 13.0625 8.9375 13.0625C8.39049 13.0625 7.86589 12.8452 7.47909 12.4584C7.0923 12.0716 6.875 11.547 6.875 11ZM17.1875 8.9375C16.6405 8.9375 16.1159 9.1548 15.7291 9.54159C15.3423 9.92839 15.125 10.453 15.125 11C15.125 11.547 15.3423 12.0716 15.7291 12.4584C16.1159 12.8452 16.6405 13.0625 17.1875 13.0625C17.7345 13.0625 18.2591 12.8452 18.6459 12.4584C19.0327 12.0716 19.25 11.547 19.25 11C19.25 10.453 19.0327 9.92839 18.6459 9.54159C18.2591 9.1548 17.7345 8.9375 17.1875 8.9375ZM1.375 2.0625C1.375 1.88016 1.44743 1.7053 1.57636 1.57636C1.7053 1.44743 1.88016 1.375 2.0625 1.375H3.4375C3.61984 1.375 3.7947 1.44743 3.92364 1.57636C4.05257 1.7053 4.125 1.88016 4.125 2.0625V5.5H22.6875C22.8698 5.5 23.0447 5.57243 23.1736 5.70136C23.3026 5.8303 23.375 6.00516 23.375 6.1875V15.8125C23.375 15.9948 23.3026 16.1697 23.1736 16.2986C23.0447 16.4276 22.8698 16.5 22.6875 16.5H4.125V19.9375C4.125 20.1198 4.05257 20.2947 3.92364 20.4236C3.7947 20.5526 3.61984 20.625 3.4375 20.625C3.25516 20.625 3.0803 20.5526 2.95136 20.4236C2.82243 20.2947 2.75 20.1198 2.75 19.9375V2.75H2.0625C1.88016 2.75 1.7053 2.67757 1.57636 2.54864C1.44743 2.4197 1.375 2.24484 1.375 2.0625ZM8.9375 7.5625C8.02582 7.5625 7.15148 7.92466 6.50682 8.56932C5.86216 9.21398 5.5 10.0883 5.5 11C5.5 11.9117 5.86216 12.786 6.50682 13.4307C7.15148 14.0753 8.02582 14.4375 8.9375 14.4375C9.84918 14.4375 10.7235 14.0753 11.3682 13.4307C12.0128 12.786 12.375 11.9117 12.375 11C12.375 10.0883 12.0128 9.21398 11.3682 8.56932C10.7235 7.92466 9.84918 7.5625 8.9375 7.5625ZM13.75 11C13.75 11.9117 14.1122 12.786 14.7568 13.4307C15.4015 14.0753 16.2758 14.4375 17.1875 14.4375C18.0992 14.4375 18.9735 14.0753 19.6182 13.4307C20.2628 12.786 20.625 11.9117 20.625 11C20.625 10.0883 20.2628 9.21398 19.6182 8.56932C18.9735 7.92466 18.0992 7.5625 17.1875 7.5625C16.2758 7.5625 15.4015 7.92466 14.7568 8.56932C14.1122 9.21398 13.75 10.0883 13.75 11ZM5.5 17.1875H10.3125V18.5625C10.3125 18.7448 10.2401 18.9197 10.1111 19.0486C9.9822 19.1776 9.80734 19.25 9.625 19.25H6.1875C6.00516 19.25 5.8303 19.1776 5.70136 19.0486C5.57243 18.9197 5.5 18.7448 5.5 18.5625V17.1875ZM11 18.5625V17.1875H16.5V18.5625C16.5 18.7448 16.4276 18.9197 16.2986 19.0486C16.1697 19.1776 15.9948 19.25 15.8125 19.25H11.6875C11.5052 19.25 11.3303 19.1776 11.2014 19.0486C11.0724 18.9197 11 18.7448 11 18.5625Z"/>
-            </svg>
+            {% include "app/icons/gpu.html" only %}
           </div>
           <h3 class="despre-card__title">Plăci video</h3>
           <p class="despre-card__text">
@@ -141,9 +125,7 @@
     <div class="despre-grid">
       <article class="despre-card">
         <div class="despre-card__icon-wrapper" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-          </svg>
+          {% include "app/icons/shield.html" only %}
         </div>
         <h3 class="despre-card__title">Doar produse noi</h3>
         <p class="despre-card__text">
@@ -153,12 +135,7 @@
 
       <article class="despre-card">
         <div class="despre-card__icon-wrapper" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-            <circle cx="9" cy="7" r="4"></circle>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-          </svg>
+          {% include "app/icons/users.html" only %}
         </div>
         <h3 class="despre-card__title">Consultanță directă</h3>
         <p class="despre-card__text">
@@ -168,12 +145,7 @@
 
       <article class="despre-card">
         <div class="despre-card__icon-wrapper" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="1" y="3" width="15" height="13"></rect>
-            <polygon points="16 8 20 8 23 11 23 16 16 16 8"></polygon>
-            <circle cx="5.5" cy="18.5" r="2.5"></circle>
-            <circle cx="18.5" cy="18.5" r="2.5"></circle>
-          </svg>
+          {% include "app/icons/truck.html" only %}
         </div>
         <h3 class="despre-card__title">Stocuri reale</h3>
         <p class="despre-card__text">
@@ -183,10 +155,7 @@
 
       <article class="despre-card">
         <div class="despre-card__icon-wrapper" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="1" x2="12" y2="23"></line>
-            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-          </svg>
+          {% include "app/icons/dollar_sign.html" only %}
         </div>
         <h3 class="despre-card__title">Prețuri transparente</h3>
         <p class="despre-card__text">

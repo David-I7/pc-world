@@ -90,21 +90,21 @@
       <div class="pagination__actions">
         {% if url_pagina_anterioara %}
         <a href="{{ url_pagina_anterioara }}" class="button button--icon" title="Pagina anterioară">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left preview-icon"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>  
+          {% include "app/icons/arrow_left.html" with size="24" only %}  
         </a>
         {% else %}
         <span class="button button--icon pagination__disabled" aria-disabled="true" title="Pagina anterioară">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left preview-icon"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+          {% include "app/icons/arrow_left.html" with size="24" only %}
         </span>
         {% endif %}
 
         {% if url_pagina_urmatoare %}
         <a href="{{ url_pagina_urmatoare }}" class="button button--icon" title="Pagina următoare">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right preview-icon"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          {% include "app/icons/arrow_right.html" with size="24" only %}
         </a>
         {% else %}
         <span class="button button--icon pagination__disabled" aria-disabled="true" title="Pagina următoare">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right preview-icon"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          {% include "app/icons/arrow_right.html" with size="24" only %}
         </span>
         {% endif %}
       </div>
@@ -123,21 +123,21 @@
       <div class="pagination__actions">
         {% if url_pagina_anterioara %}
         <a href="{{ url_pagina_anterioara }}" class="button button--icon" title="Pagina anterioară">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left preview-icon"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>  
+          {% include "app/icons/arrow_left.html" with size="24" only %}  
         </a>
         {% else %}
         <span class="button button--icon pagination__disabled" aria-disabled="true" title="Pagina anterioară">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left preview-icon"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+          {% include "app/icons/arrow_left.html" with size="24" only %}
         </span>
         {% endif %}
 
         {% if url_pagina_urmatoare %}
         <a href="{{ url_pagina_urmatoare }}" class="button button--icon" title="Pagina următoare">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right preview-icon"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          {% include "app/icons/arrow_right.html" with size="24" only %}
         </a>
         {% else %}
         <span class="button button--icon pagination__disabled" aria-disabled="true" title="Pagina următoare">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right preview-icon"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          {% include "app/icons/arrow_right.html" with size="24" only %}
         </span>
         {% endif %}
       </div>
