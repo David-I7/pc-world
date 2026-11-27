@@ -8,6 +8,7 @@ urlpatterns = [
     path('info/', info.handler, name='info'),
     path('log/', log.handler, name='log'),
     re_path(r'accesare/(?P<id>\d+)/', accesare.handler, name='accesare'),
+    path('test/', test.handler, name='test'),
     
     # App URLs
     path('', index.handler, name='index'),

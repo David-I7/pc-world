@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
 from pathlib import Path
+from django.contrib.messages import constants as message_constants
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -150,7 +151,13 @@ MAILERS = {
     },
 }
 
+# Message Framework
+MESSAGE_LEVEL = message_constants.DEBUG
+
+# APP
+
 STOC_MIN = 5
 PROD_PER_PAG = 6
 PRODUSE_SIMILARE_K = 4
 PRODUSE_DISPLAY_K = 6
+

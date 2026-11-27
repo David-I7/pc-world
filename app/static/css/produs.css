@@ -191,7 +191,7 @@
   align-items: center;
   padding: 0.15rem 0.55rem;
   border-radius: var(--radius-full);
-  background-color: var(--color-danger);
+  background-color: var(--color-surface-danger);
   color: var(--color-on-danger);
   border: 1px solid var(--color-danger-border);
   font-size: var(--font-size-body-xs);
@@ -230,11 +230,11 @@
 }
 
 .produs-detail__stock--ok {
-  color: var(--color-on-success);
+  color: var(--color-success);
 }
 
 .produs-detail__stock--low {
-  color: var(--color-on-danger);
+  color: var(--color-danger);
 }
 
 .produs-detail__actions {

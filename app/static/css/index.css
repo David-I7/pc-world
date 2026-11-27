@@ -69,11 +69,30 @@
   --color-on-primary: #ffffff;
 
   /* Feedback & Status */
-  --color-danger: #f8d7da;
-  --color-danger-border: #dc2626;
+  --color-surface-danger: #f8d7da;
   --color-on-danger: #721c24;
-  --color-success: #d1fae5;
+  --color-danger-border: #dc2626;
+  --color-danger: #dc2626;
+
+  --color-surface-success: #d1fae5;
   --color-on-success: #065f46;
+  --color-success-border: #10b981;
+  --color-success: #10b981;
+
+  --color-surface-warning: #fff3cd;
+  --color-on-warning: #856404;
+  --color-warning-border: #facc15;
+  --color-warning: #facc15;
+
+  --color-surface-info: #cff4fc;
+  --color-on-info: #0c5460;
+  --color-info-border: #0ea5e9;
+  --color-info: #0ea5e9;
+
+  --color-surface-debug: #d1d4d5;
+  --color-on-debug: #495057;
+  --color-debug-border: #babfc4;
+  --color-debug: #6c757d;
 
   /* Umbre */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
@@ -102,11 +121,30 @@
   --color-primary-subtle: rgba(249, 115, 22, 0.15);
   --color-on-primary: #0f1115;
 
-  --color-danger: #721c24;
-  --color-danger-border: #ef4444;
+  --color-surface-danger: #721c24;
   --color-on-danger: #f8d7da;
-  --color-success: #065f46;
+  --color-danger-border: #ef4444;
+  --color-danger: #ef4444;
+
+  --color-surface-success: #065f46;
   --color-on-success: #d1fae5;
+  --color-success-border: #10b981;
+  --color-success: #10b981;
+
+  --color-surface-warning: #856404;
+  --color-on-warning: #fff3cd;
+  --color-warning-border: #facc15;
+  --color-warning: #facc15;
+
+  --color-surface-info: #0c5460;
+  --color-on-info: #cff4fc;
+  --color-info-border: #0ea5e9;
+  --color-info: #0ea5e9;
+
+  --color-surface-debug: #495057;
+  --color-on-debug: #d1d4d5;
+  --color-debug-border: #babfc4;
+  --color-debug: #6c757d;
 
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.45);
@@ -308,13 +346,47 @@ h5 {
 }
 
 .message.success {
-  background-color: var(--color-success);
+  background-color: var(--color-surface-success);
   color: var(--color-on-success);
+}
+.message.info {
+  background-color: var(--color-surface-info);
+  color: var(--color-on-info);
+}
+
+.message.warning {
+  background-color: var(--color-surface-warning);
+  color: var(--color-on-warning);
+}
+
+.message.debug {
+  background-color: var(--color-surface-debug);
+  color: var(--color-on-debug);
 }
 
 .message.error {
-  background-color: var(--color-danger);
+  background-color: var(--color-surface-danger);
   color: var(--color-on-danger);
+}
+
+.message-text-only.success {
+  color: var(--color-success);
+}
+
+.message-text-only.info {
+  color: var(--color-info);
+}
+
+.message-text-only.warning {
+  color: var(--color-warning);
+}
+
+.message-text-only.debug {
+  color: var(--color-debug);
+}
+
+.message-text-only.error {
+  color: var(--color-danger);
 }
 
 .screen-reader-only {
